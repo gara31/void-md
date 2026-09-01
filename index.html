@@ -92,6 +92,12 @@
         .search-input:focus {
             border-color: #ff2d55;
         }
+        .cart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 4px 18px 24px;
+        }
         .cart {
             position: relative;
             background: #171325;
@@ -403,25 +409,10 @@
                 <div class="marquee-title">KANARA<br>ARCADE</div>
                 <div class="marquee-sub">Pilih cartridge, tekan START</div>
             </div>
-            <div class="cart-grid">
-                <button type="button" class="cart" onclick="playGame('mario')">
-                    <div class="cart-window">
-                        <img src="assets/covers/mario.jpg" alt="Mario">
-                    </div>
-                    <div class="cart-label">
-                        <div class="cart-name">Super Mario Bros</div>
-                    </div>
-                    <div class="cart-meta">Nintendo · 1985</div>
-                </button>
-                <button type="button" class="cart" onclick="playGame('kage')">
-                    <div class="cart-window">
-                        <img src="assets/covers/kage.jpg" alt="Kage">
-                    </div>
-                    <div class="cart-label">
-                        <div class="cart-name">The Legend of Kage</div>
-                    </div>
-                    <div class="cart-meta">Taito · 1986</div>
-                </button>
+            <div class="search-box">
+                <input type="text" class="search-input" id="search-box" placeholder="Cari dari 419 game..." oninput="filterGames(this.value)">
+            </div>
+            <div class="cart-grid" id="game-grid">
             </div>
         </div>
 
