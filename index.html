@@ -498,8 +498,10 @@
 
         function playGame(romName) {
             initAudio();
+            document.body.classList.add('in-game');
             document.getElementById('hub-view').style.display = 'none';
             document.getElementById('game-view').style.display = 'flex';
+            document.getElementById('game-view').classList.add('active');
 
             try {
                 if (document.documentElement.requestFullscreen) {
@@ -546,6 +548,8 @@
         }
 
         function backToHub() {
+            document.body.classList.remove('in-game');
+            document.getElementById('game-view').classList.remove('active');
             try {
                 if (screen.orientation && screen.orientation.unlock) {
                     screen.orientation.unlock();
