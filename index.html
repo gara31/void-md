@@ -478,7 +478,9 @@
             buf32 = new Uint32Array(img.data.buffer);
 
         let audioCtx = null, scriptNode = null, nes = null, animId = null;
-        const BUFFER_CAP = 8192;
+        let actualSampleRate = 44100;
+
+        const BUFFER_CAP = 4096;
         const ringL = new Float32Array(BUFFER_CAP);
         const ringR = new Float32Array(BUFFER_CAP);
         let writePtr = 0, readPtr = 0, sampleCount = 0;
@@ -488,8 +490,9 @@
                 try {
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (AC) {
-                        audioCtx = new AC();
-                        scriptNode = audioCtx.createScriptProcessor(1024, 0, 2);
+                        audioCtx = new AC({ latencyHint: 0 });
+                        actualSampleRate = audioCtx.sampleRate || 44100;
+                        scriptNode = audioCtx.createScriptProcessor(512, 0, 2);
                         scriptNode.onaudioprocess = e => {
                             const outL = e.outputBuffer.getChannelData(0);
                             const outR = e.outputBuffer.getChannelData(1);
@@ -518,10 +521,10 @@
         }
 
         function onAudioSample(l, r) {
-            if (sampleCount >= BUFFER_CAP) {
-                const drop = 1024;
+            if (sampleCount >= 2048) {
+                const drop = sampleCount - 512;
                 readPtr = (readPtr + drop) % BUFFER_CAP;
-                sampleCount -= drop;
+                sampleCount = 512;
             }
             ringL[writePtr] = l;
             ringR[writePtr] = r;
