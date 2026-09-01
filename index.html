@@ -536,7 +536,8 @@
             });
 
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'assets/games/' + romName + '.nes', true);
+            const romFile = (romName === 'mario' || romName === 'super_mario_bros') ? 'mario.nes' : (romName + '.nes');
+            xhr.open('GET', 'assets/games/' + romFile, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
                 if (xhr.status === 200 || xhr.status === 0) {
