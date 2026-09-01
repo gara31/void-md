@@ -477,64 +477,51 @@
             img = cx.createImageData(256, 240),
             buf32 = new Uint32Array(img.data.buffer);
 
-        let audioCtx = null, scriptNode = null, nes = null, animId = null;
-        let actualSampleRate = 44100;
-
-        const BUFFER_CAP = 4096;
-        const ringL = new Float32Array(BUFFER_CAP);
-        const ringR = new Float32Array(BUFFER_CAP);
-        let writePtr = 0, readPtr = 0, sampleCount = 0;
+        let audioCtx = null, nes = null, animId = null;
+        let nextPlayTime = 0;
 
         function initAudio() {
             if (!audioCtx) {
                 try {
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (AC) {
-                        audioCtx = new AC({ latencyHint: 0 });
-                        actualSampleRate = audioCtx.sampleRate || 44100;
-                        scriptNode = audioCtx.createScriptProcessor(512, 0, 2);
-                        let lastL = 0, lastR = 0;
-                        scriptNode.onaudioprocess = e => {
-                            const outL = e.outputBuffer.getChannelData(0);
-                            const outR = e.outputBuffer.getChannelData(1);
-                            const len = outL.length;
-
-                            if (sampleCount < len) {
-                                for (let i = 0; i < len; i++) {
-                                    lastL *= 0.95;
-                                    lastR *= 0.95;
-                                    outL[i] = lastL;
-                                    outR[i] = lastR;
-                                }
-                                return;
-                            }
-
-                            for (let i = 0; i < len; i++) {
-                                lastL = ringL[readPtr];
-                                lastR = ringR[readPtr];
-                                outL[i] = lastL;
-                                outR[i] = lastR;
-                                readPtr = (readPtr + 1) % BUFFER_CAP;
-                            }
-                            sampleCount -= len;
-                        };
-                        scriptNode.connect(audioCtx.destination);
+                        audioCtx = new AC({ latencyHint: 'interactive' });
+                        nextPlayTime = audioCtx.currentTime;
                     }
                 } catch (e) {}
             }
             if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         }
 
+        const CHUNK_SIZE = 512;
+        const leftBuffer = new Float32Array(CHUNK_SIZE);
+        const rightBuffer = new Float32Array(CHUNK_SIZE);
+        let sampleIndex = 0;
+
         function onAudioSample(l, r) {
-            if (sampleCount >= 2048) {
-                const drop = sampleCount - 512;
-                readPtr = (readPtr + drop) % BUFFER_CAP;
-                sampleCount = 512;
+            leftBuffer[sampleIndex] = l;
+            rightBuffer[sampleIndex] = r;
+            sampleIndex++;
+
+            if (sampleIndex >= CHUNK_SIZE) {
+                if (audioCtx && audioCtx.state === 'running') {
+                    const buffer = audioCtx.createBuffer(2, CHUNK_SIZE, 44100);
+                    buffer.getChannelData(0).set(leftBuffer);
+                    buffer.getChannelData(1).set(rightBuffer);
+
+                    const source = audioCtx.createBufferSource();
+                    source.buffer = buffer;
+                    source.connect(audioCtx.destination);
+
+                    const now = audioCtx.currentTime;
+                    if (nextPlayTime < now) {
+                        nextPlayTime = now + 0.02;
+                    }
+                    source.start(nextPlayTime);
+                    nextPlayTime += buffer.duration;
+                }
+                sampleIndex = 0;
             }
-            ringL[writePtr] = l;
-            ringR[writePtr] = r;
-            writePtr = (writePtr + 1) % BUFFER_CAP;
-            sampleCount++;
         }
 
         function playGame(romName) {
