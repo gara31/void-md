@@ -536,13 +536,22 @@
             xhr.open('GET', 'assets/games/' + romName + '.nes', true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
-                if (xhr.status === 200) {
+                if (xhr.status === 200 || xhr.status === 0) {
                     let binary = '';
                     const bytes = new Uint8Array(xhr.response);
                     for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
                     nes.loadROM(binary);
-                    function loop() {
-                        if (nes) nes.frame();
+
+                    let lastTime = performance.now();
+                    const frameInterval = 1000 / 60;
+
+                    function loop(now) {
+                        if (!nes) return;
+                        const elapsed = now - lastTime;
+                        if (elapsed >= frameInterval) {
+                            lastTime = now - (elapsed % frameInterval);
+                            nes.frame();
+                        }
                         animId = requestAnimationFrame(loop);
                     }
                     animId = requestAnimationFrame(loop);
