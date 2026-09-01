@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>Nintendo Arcade</title>
+    <title>Kanara Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,8 +20,8 @@
             height: 100vh;
             margin: 0;
             padding: 0;
-            background: #0d0d12;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #07070c;
+            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #fff;
             overflow: hidden;
             display: flex;
@@ -31,96 +34,127 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background: #15151c;
+            background: #0f0d16;
             position: relative;
+            border-left: 1px solid #1e1a2b;
+            border-right: 1px solid #1e1a2b;
         }
         #hub-view {
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 16px;
             overflow-y: auto;
+            background:
+                radial-gradient(circle at 15% 0%, rgba(255, 45, 85, .10), transparent 45%),
+                radial-gradient(circle at 85% 8%, rgba(255, 183, 3, .08), transparent 40%),
+                #0f0d16;
         }
-        .hub-header {
+        .marquee {
+            padding: 22px 18px 16px;
+            position: relative;
+        }
+        .marquee-bulbs {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #282836;
-            margin-bottom: 16px;
+            gap: 5px;
+            margin-bottom: 10px;
         }
-        .hub-title {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            color: #ff4757;
+        .marquee-bulbs span {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ffb703;
+            box-shadow: 0 0 6px 1px rgba(255, 183, 3, .8);
         }
-        .hub-tag {
-            font-size: 11px;
-            background: #252533;
-            color: #8888a0;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 600;
+        .marquee-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 21px;
+            line-height: 1.4;
+            color: #ff2d55;
+            text-shadow: 0 0 12px rgba(255, 45, 85, .55), 0 0 2px rgba(255, 45, 85, .9);
         }
-        .game-grid {
+        .marquee-sub {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #77748f;
+        }
+        .cart-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
+            gap: 16px;
+            padding: 4px 18px 24px;
         }
-        .game-btn {
-            background: #1c1c26;
-            border: 1px solid #2e2e3f;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        .cart {
+            position: relative;
+            background: #171325;
+            border: 1px solid #2c2740;
+            border-radius: 4px 12px 10px 10px;
+            padding: 8px 8px 10px;
             cursor: pointer;
-            padding: 0;
             color: inherit;
             text-align: left;
             font-family: inherit;
             user-select: none;
             -webkit-user-select: none;
         }
-        .game-btn:active {
-            background: #252533;
-            transform: scale(0.98);
+        .cart::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 14px;
+            width: 26px;
+            height: 8px;
+            background: #0f0d16;
+            border: 1px solid #2c2740;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
         }
-        .game-cover {
+        .cart:active {
+            background: #1e1930;
+        }
+        .cart-window {
             width: 100%;
             aspect-ratio: 3/4;
+            border-radius: 3px;
+            overflow: hidden;
             background: #000;
+            border: 1px solid #322c48;
+        }
+        .cart-window img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
             pointer-events: none;
         }
-        .game-info {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        .cart-label {
+            margin-top: 9px;
+            padding: 7px 8px;
+            background: #ff2d55;
+            border-radius: 3px;
             pointer-events: none;
         }
-        .game-name {
-            font-size: 13px;
+        .cart-name {
+            font-size: 12px;
             font-weight: 700;
             color: #fff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .game-sub {
+        .cart-meta {
+            margin-top: 6px;
             font-size: 10px;
-            color: #888899;
+            color: #5e5a75;
+            letter-spacing: .3px;
+            pointer-events: none;
         }
         #game-view {
             width: 100%;
             height: 100%;
             display: none;
             flex-direction: column;
-            background: #18181f;
+            background: #0f0d16;
             position: absolute;
             top: 0;
             left: 0;
@@ -130,40 +164,66 @@
             -webkit-user-select: none;
         }
         .game-top-nav {
-            height: 36px;
-            background: #0e0e13;
+            height: 40px;
+            background: #100e18;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 12px;
-            border-bottom: 1px solid #252533;
+            border-bottom: 1px solid #241f34;
             flex-shrink: 0;
         }
         .back-btn {
-            background: #252533;
-            border: 1px solid #3e3e52;
+            background: #1e1930;
+            border: 1px solid #362f4d;
             color: #fff;
             font-size: 11px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 5px 11px;
             border-radius: 6px;
             cursor: pointer;
         }
         .current-game-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            color: #ccc;
+            color: #a09cb5;
+            letter-spacing: .2px;
         }
+        #cabinet {
+            width: 100%;
+            padding: 12px 12px 6px;
+            flex-shrink: 0;
+        }
+        #bezel {
+            background: linear-gradient(180deg, #1c1830, #120f1e);
+            border: 1px solid #322c48;
+            border-radius: 14px;
+            padding: 10px;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .03);
+        }
+        .rivet {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #55506e, #221e33);
+        }
+        .rivet.tl { top: 6px; left: 6px; }
+        .rivet.tr { top: 6px; right: 6px; }
+        .rivet.bl { bottom: 6px; left: 6px; }
+        .rivet.br { bottom: 6px; right: 6px; }
         #screen-wrap {
             width: 100%;
-            height: 46vh;
+            height: 40vh;
             background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            flex-shrink: 0;
+            border-radius: 6px;
+            border: 1px solid #000;
         }
         canvas#nes {
             width: 100%;
@@ -174,15 +234,26 @@
             transform: translateZ(0);
             will-change: transform;
         }
+        #scanlines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0) 0px,
+                rgba(0, 0, 0, 0) 1px,
+                rgba(0, 0, 0, .16) 2px
+            );
+            mix-blend-mode: multiply;
+        }
         #pad {
             width: 100%;
             flex: 1;
-            padding: clamp(8px, 2.5vw, 14px);
-            background: #18181f;
+            padding: clamp(10px, 2.8vw, 16px) clamp(12px, 3.5vw, 20px);
+            background: #100e18;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            border-top: 2px solid #272733;
             position: relative;
         }
         #top-ctrl {
@@ -192,17 +263,17 @@
             align-items: center;
         }
         #top-ctrl button {
-            width: clamp(60px, 18vw, 78px);
-            height: clamp(22px, 5.5vw, 28px);
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .2);
-            border-radius: 14px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+            width: clamp(58px, 17vw, 74px);
+            height: clamp(20px, 5vw, 26px);
+            background: #1c1830;
+            border: 1px solid #362f4d;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .04);
             cursor: pointer;
-            color: #fff;
-            font-size: clamp(9px, 2.2vw, 11px);
-            font-weight: 900;
-            letter-spacing: 1px;
+            color: #9d99b3;
+            font-size: clamp(9px, 2.1vw, 10px);
+            font-weight: 700;
+            letter-spacing: .5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -210,95 +281,98 @@
         }
         #top-ctrl button:active, #top-ctrl button.touching {
             transform: translateY(2px);
-            background: #444;
-            box-shadow: 0 0 0 #000;
+            background: #2a2440;
+            color: #fff;
         }
         #main-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 6px;
+            padding: 4px 4px 0;
             gap: clamp(6px, 2vw, 16px);
         }
         #joystick {
-            width: clamp(96px, 29vw, 132px);
-            height: clamp(96px, 29vw, 132px);
+            width: clamp(98px, 29vw, 132px);
+            height: clamp(98px, 29vw, 132px);
             border-radius: 50%;
-            background: radial-gradient(circle at 50% 42%, #262632, #121217);
-            border: 1px solid rgba(255, 255, 255, .12);
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, .65), 0 4px 14px rgba(0, 0, 0, .6);
+            background:
+                radial-gradient(circle at 50% 42%, #241f38 0%, #171325 70%),
+                repeating-radial-gradient(circle, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 3px);
+            border: 2px solid #322c48;
+            box-shadow: inset 0 3px 10px rgba(0, 0, 0, .7), 0 4px 14px rgba(0, 0, 0, .6);
             position: relative;
             flex-shrink: 0;
             touch-action: none;
         }
         #joystick-knob {
-            width: 42%;
-            height: 42%;
+            width: 44%;
+            height: 44%;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 32%, #ff6b78, #b33939);
+            background: radial-gradient(circle at 35% 30%, #ff5773, #ff2d55 55%, #b3123a);
             border: 1px solid rgba(255, 255, 255, .35);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, .65);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .7), inset 0 -3px 6px rgba(0, 0, 0, .25);
             position: absolute;
-            top: 29%;
-            left: 29%;
+            top: 28%;
+            left: 28%;
             pointer-events: none;
             transition: transform .04s linear;
         }
         #act {
             display: flex;
-            gap: clamp(10px, 2.8vw, 16px);
-            background: rgba(0, 0, 0, .35);
-            padding: clamp(8px, 2.2vw, 12px) clamp(10px, 3vw, 18px);
-            border-radius: 36px;
-            border: 1px solid rgba(255, 255, 255, .1);
+            gap: clamp(12px, 3vw, 18px);
             align-items: center;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .6);
             flex-shrink: 0;
         }
         #act button {
-            width: clamp(44px, 13vw, 58px);
-            height: clamp(44px, 13vw, 58px);
+            width: clamp(46px, 13.5vw, 60px);
+            height: clamp(46px, 13.5vw, 60px);
             border-radius: 50%;
-            border: none;
+            border: 1px solid rgba(255, 183, 3, .35);
             color: #fff;
-            font-size: clamp(16px, 4.5vw, 20px);
-            font-weight: bold;
+            font-size: clamp(16px, 4.2vw, 19px);
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ff4757;
-            box-shadow: 0 4px #b33939;
+            background: radial-gradient(circle at 35% 30%, #ffcf4d, #ffb703 55%, #b37e00);
+            box-shadow: 0 4px #8a6200, 0 6px 12px rgba(0, 0, 0, .5);
             cursor: pointer;
-            transition: transform .06s, background .06s;
+            transition: transform .06s, box-shadow .06s;
         }
         #act button:active, #act button.touching {
-            transform: scale(.92) translateY(3px);
-            background: #e84118 !important;
-            box-shadow: 0 1px #b33939;
+            transform: translateY(3px);
+            box-shadow: 0 1px #8a6200;
         }
     </style>
 </head>
 <body>
     <div id="app">
         <div id="hub-view">
-            <div class="hub-header">
-                <div class="hub-title">Nintendo Arcade</div>
-                <div class="hub-tag">NES Retro</div>
+            <div class="marquee">
+                <div class="marquee-bulbs">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="marquee-title">KANARA<br>ARCADE</div>
+                <div class="marquee-sub">Pilih cartridge, tekan START</div>
             </div>
-            <div class="game-grid">
-                <button type="button" class="game-btn" onclick="playGame('mario', 'Super Mario Bros (1985)')">
-                    <img class="game-cover" src="assets/covers/mario.jpg" alt="Mario">
-                    <div class="game-info">
-                        <div class="game-name">Super Mario Bros</div>
-                        <div class="game-sub">Nintendo • 1985</div>
+            <div class="cart-grid">
+                <button type="button" class="cart" onclick="playGame('mario', 'Super Mario Bros (1985)')">
+                    <div class="cart-window">
+                        <img src="assets/covers/mario.jpg" alt="Mario">
                     </div>
+                    <div class="cart-label">
+                        <div class="cart-name">Super Mario Bros</div>
+                    </div>
+                    <div class="cart-meta">Nintendo &middot; 1985</div>
                 </button>
-                <button type="button" class="game-btn" onclick="playGame('kage', 'The Legend of Kage (1986)')">
-                    <img class="game-cover" src="assets/covers/kage.jpg" alt="Kage">
-                    <div class="game-info">
-                        <div class="game-name">The Legend of Kage</div>
-                        <div class="game-sub">Taito • 1986</div>
+                <button type="button" class="cart" onclick="playGame('kage', 'The Legend of Kage (1986)')">
+                    <div class="cart-window">
+                        <img src="assets/covers/kage.jpg" alt="Kage">
                     </div>
+                    <div class="cart-label">
+                        <div class="cart-name">The Legend of Kage</div>
+                    </div>
+                    <div class="cart-meta">Taito &middot; 1986</div>
                 </button>
             </div>
         </div>
@@ -307,10 +381,19 @@
             <div class="game-top-nav">
                 <button type="button" class="back-btn" onclick="backToHub()">KEMBALI</button>
                 <div class="current-game-title" id="game-title">Game</div>
-                <div style="width:50px"></div>
+                <div style="width:58px"></div>
             </div>
-            <div id="screen-wrap">
-                <canvas id="nes" width="256" height="240"></canvas>
+            <div id="cabinet">
+                <div id="bezel">
+                    <div class="rivet tl"></div>
+                    <div class="rivet tr"></div>
+                    <div class="rivet bl"></div>
+                    <div class="rivet br"></div>
+                    <div id="screen-wrap">
+                        <canvas id="nes" width="256" height="240"></canvas>
+                        <div id="scanlines"></div>
+                    </div>
+                </div>
             </div>
             <div id="pad">
                 <div id="top-ctrl">
