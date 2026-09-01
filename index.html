@@ -486,7 +486,7 @@
                 try {
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (AC) {
-                        audioCtx = new AC({ sampleRate: SAMPLE_RATE });
+                        audioCtx = new AC();
                         scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 0, 2);
                         scriptNode.onaudioprocess = e => {
                             const outL = e.outputBuffer.getChannelData(0), outR = e.outputBuffer.getChannelData(1);
@@ -505,7 +505,9 @@
                     }
                 } catch (e) {}
             }
-            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
 
         function onAudioSample(l, r) {
