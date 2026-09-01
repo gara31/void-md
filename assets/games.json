@@ -10,11 +10,6 @@
     "file": "kage.nes"
   },
   {
-    "id": "tloz_perilsofdarkness_v1_7",
-    "title": "TLoZ-PerilsofDarkness v1.7",
-    "file": "tloz_perilsofdarkness_v1_7.nes"
-  },
-  {
     "id": "4_nin_uchi_mahjong",
     "title": "4 Nin Uchi Mahjong",
     "file": "4_nin_uchi_mahjong.nes"
@@ -40,11 +35,6 @@
     "file": "adventure_island_classic.nes"
   },
   {
-    "id": "adventure_island_higgins_facelift",
-    "title": "Adventure Island Higgins Facelift",
-    "file": "adventure_island_higgins_facelift.nes"
-  },
-  {
     "id": "adventures_of_bayou_billy_the",
     "title": "Adventures of Bayou Billy, The",
     "file": "adventures_of_bayou_billy_the.nes"
@@ -65,16 +55,6 @@
     "file": "bashi_bazook_morphoid_masher.nes"
   },
   {
-    "id": "bomber_man",
-    "title": "Bomber Man",
-    "file": "bomber_man.nes"
-  },
-  {
-    "id": "bomber_man_ii",
-    "title": "Bomber Man II",
-    "file": "bomber_man_ii.nes"
-  },
-  {
     "id": "bomberman",
     "title": "Bomberman",
     "file": "bomberman.nes"
@@ -90,44 +70,9 @@
     "file": "bomberman_rev.nes"
   },
   {
-    "id": "castlevania_chorus_of_mysteries_improved_controls",
-    "title": "CastleVania - Chorus of Mysteries + Improved Controls",
-    "file": "castlevania_chorus_of_mysteries_improved_controls.nes"
-  },
-  {
-    "id": "castlevania_chorus_of_mysteries",
-    "title": "CastleVania - Chorus of Mysteries",
-    "file": "castlevania_chorus_of_mysteries.nes"
-  },
-  {
     "id": "castlevania",
     "title": "Castlevania",
     "file": "castlevania.nes"
-  },
-  {
-    "id": "castlevania_improved_controls_v3_1",
-    "title": "Castlevania - Improved Controls v3.1",
-    "file": "castlevania_improved_controls_v3_1.nes"
-  },
-  {
-    "id": "castlevania_overflow_darkness_improved_controls",
-    "title": "Castlevania - Overflow Darkness + Improved Controls",
-    "file": "castlevania_overflow_darkness_improved_controls.nes"
-  },
-  {
-    "id": "castlevania_overflow_darkness",
-    "title": "Castlevania - Overflow Darkness",
-    "file": "castlevania_overflow_darkness.nes"
-  },
-  {
-    "id": "castlevania_the_holy_relics_improved_controls",
-    "title": "Castlevania - The Holy Relics + Improved Controls",
-    "file": "castlevania_the_holy_relics_improved_controls.nes"
-  },
-  {
-    "id": "castlevania_the_holy_relics",
-    "title": "Castlevania - The Holy Relics",
-    "file": "castlevania_the_holy_relics.nes"
   },
   {
     "id": "castlevania_ii_simon_s_quest",
@@ -160,16 +105,6 @@
     "file": "destiny_of_an_emperor.nes"
   },
   {
-    "id": "destiny_of_an_emperor_2_0_remake",
-    "title": "Destiny of an Emperor - 2.0 Remake",
-    "file": "destiny_of_an_emperor_2_0_remake.nes"
-  },
-  {
-    "id": "destiny_of_an_emperor_i_dong_zhuo",
-    "title": "Destiny of an Emperor I - Dong Zhuo",
-    "file": "destiny_of_an_emperor_i_dong_zhuo.nes"
-  },
-  {
     "id": "dishonor_thy_father",
     "title": "Dishonor Thy Father",
     "file": "dishonor_thy_father.nes"
@@ -183,16 +118,6 @@
     "id": "final_fantasy",
     "title": "Final Fantasy",
     "file": "final_fantasy.nes"
-  },
-  {
-    "id": "final_fantasy_world_of_chaos",
-    "title": "Final Fantasy ++ World of Chaos",
-    "file": "final_fantasy_world_of_chaos.nes"
-  },
-  {
-    "id": "final_fantasy_1",
-    "title": "Final Fantasy -1",
-    "file": "final_fantasy_1.nes"
   },
   {
     "id": "final_fantasy_ii",
@@ -213,26 +138,6 @@
     "id": "golf",
     "title": "Golf",
     "file": "golf.nes"
-  },
-  {
-    "id": "golf_kiss_goes_golfing_starring_ace_frehley",
-    "title": "Golf - Kiss Goes Golfing starring Ace Frehley",
-    "file": "golf_kiss_goes_golfing_starring_ace_frehley.nes"
-  },
-  {
-    "id": "golf_kiss_goes_golfing_starring_gene_simmons",
-    "title": "Golf - Kiss Goes Golfing starring Gene Simmons",
-    "file": "golf_kiss_goes_golfing_starring_gene_simmons.nes"
-  },
-  {
-    "id": "golf_kiss_goes_golfing_starring_paul_stanley",
-    "title": "Golf - Kiss Goes Golfing starring Paul Stanley",
-    "file": "golf_kiss_goes_golfing_starring_paul_stanley.nes"
-  },
-  {
-    "id": "golf_kiss_goes_golfing_starring_peter_criss",
-    "title": "Golf - Kiss Goes Golfing starring Peter Criss",
-    "file": "golf_kiss_goes_golfing_starring_peter_criss.nes"
   },
   {
     "id": "grave_of_the_fireflies",
@@ -270,16 +175,6 @@
     "file": "journey_to_silius.nes"
   },
   {
-    "id": "journey_to_silius_original_sprites",
-    "title": "Journey to Silius - Original Sprites",
-    "file": "journey_to_silius_original_sprites.nes"
-  },
-  {
-    "id": "journey_to_silius_plus",
-    "title": "Journey to Silius Plus",
-    "file": "journey_to_silius_plus.nes"
-  },
-  {
     "id": "junkoid",
     "title": "Junkoid",
     "file": "junkoid.nes"
@@ -310,24 +205,9 @@
     "file": "lee_carvallo_s_putting_challenge.nes"
   },
   {
-    "id": "legend_of_zelda_the",
-    "title": "Legend of Zelda, The",
-    "file": "legend_of_zelda_the.nes"
-  },
-  {
-    "id": "macbee_s_adventure_island_3_0",
-    "title": "Macbee's Adventure Island 3.0",
-    "file": "macbee_s_adventure_island_3_0.nes"
-  },
-  {
     "id": "mad_city",
     "title": "Mad City",
     "file": "mad_city.nes"
-  },
-  {
-    "id": "manall_s_ff1",
-    "title": "Manall's FF1",
-    "file": "manall_s_ff1.nes"
   },
   {
     "id": "mashin_eiyuu_den_wataru_gaiden",
@@ -345,11 +225,6 @@
     "file": "mega_man_2.nes"
   },
   {
-    "id": "mega_man_simplified",
-    "title": "Mega Man Simplified",
-    "file": "mega_man_simplified.nes"
-  },
-  {
     "id": "monster_party",
     "title": "Monster Party",
     "file": "monster_party.nes"
@@ -365,19 +240,9 @@
     "file": "ninjara_hoi.nes"
   },
   {
-    "id": "ninjara_hoi_new_font_plus",
-    "title": "Ninjara Hoi! - New Font Plus",
-    "file": "ninjara_hoi_new_font_plus.nes"
-  },
-  {
     "id": "oishinbo",
     "title": "Oishinbo",
     "file": "oishinbo.nes"
-  },
-  {
-    "id": "orchestra_of_despair_improved_controls",
-    "title": "Orchestra of Despair + Improved Controls",
-    "file": "orchestra_of_despair_improved_controls.nes"
   },
   {
     "id": "orchestra_of_despair",
@@ -400,11 +265,6 @@
     "file": "prince_of_persia.nes"
   },
   {
-    "id": "prince_of_persia_altered",
-    "title": "Prince of Persia - Altered",
-    "file": "prince_of_persia_altered.nes"
-  },
-  {
     "id": "prince_of_persia_2_nes",
     "title": "Prince of Persia 2 NES",
     "file": "prince_of_persia_2_nes.nes"
@@ -420,11 +280,6 @@
     "file": "ripple_island.nes"
   },
   {
-    "id": "rock_man_kenk",
-    "title": "Rock Man Kenk",
-    "file": "rock_man_kenk.nes"
-  },
-  {
     "id": "rockman_2_dr_wily_no_nazo",
     "title": "Rockman 2 - Dr. Wily no Nazo",
     "file": "rockman_2_dr_wily_no_nazo.nes"
@@ -435,26 +290,6 @@
     "file": "rockman_l.nes"
   },
   {
-    "id": "rockman_no_constancy",
-    "title": "Rockman No Constancy",
-    "file": "rockman_no_constancy.nes"
-  },
-  {
-    "id": "roll_chan",
-    "title": "Roll-chan",
-    "file": "roll_chan.nes"
-  },
-  {
-    "id": "roll_chan_2",
-    "title": "Roll-chan 2",
-    "file": "roll_chan_2.nes"
-  },
-  {
-    "id": "roll_chan_no_constancy",
-    "title": "Roll-chan No Constancy",
-    "file": "roll_chan_no_constancy.nes"
-  },
-  {
     "id": "romancia",
     "title": "Romancia",
     "file": "romancia.nes"
@@ -463,16 +298,6 @@
     "id": "s_c_a_t_special_cybernetic_attack_team",
     "title": "S.C.A.T. - Special Cybernetic Attack Team",
     "file": "s_c_a_t_special_cybernetic_attack_team.nes"
-  },
-  {
-    "id": "smb_enhanced",
-    "title": "SMB Enhanced",
-    "file": "smb_enhanced.nes"
-  },
-  {
-    "id": "smb1_and_a_fresh_coat_of_paint",
-    "title": "SMB1 and a Fresh Coat of Paint",
-    "file": "smb1_and_a_fresh_coat_of_paint.nes"
   },
   {
     "id": "saint_seiya_ougon_densetsu_kanketsu_hen",
@@ -515,11 +340,6 @@
     "file": "star_soldier.nes"
   },
   {
-    "id": "starlight_mario_underworld",
-    "title": "Starlight Mario Underworld",
-    "file": "starlight_mario_underworld.nes"
-  },
-  {
     "id": "sted_iseki_wakusei_no_yabou",
     "title": "Sted - Iseki Wakusei no Yabou",
     "file": "sted_iseki_wakusei_no_yabou.nes"
@@ -528,11 +348,6 @@
     "id": "super_chinese_3",
     "title": "Super Chinese 3",
     "file": "super_chinese_3.nes"
-  },
-  {
-    "id": "super_mario_bros_resprited",
-    "title": "Super Mario Bros. Resprited",
-    "file": "super_mario_bros_resprited.nes"
   },
   {
     "id": "sweet_home",
@@ -570,31 +385,6 @@
     "file": "the_legend_of_princess_kaguya.nes"
   },
   {
-    "id": "the_terminator_journey_to_silius_hack",
-    "title": "The Terminator - Journey to Silius hack",
-    "file": "the_terminator_journey_to_silius_hack.nes"
-  },
-  {
-    "id": "tina_s_adventure_island",
-    "title": "Tina's Adventure Island",
-    "file": "tina_s_adventure_island.nes"
-  },
-  {
-    "id": "ultimate_adventure_island",
-    "title": "ULTIMATE Adventure Island",
-    "file": "ultimate_adventure_island.nes"
-  },
-  {
-    "id": "ultimate_castlevania_improved_controls",
-    "title": "Ultimate Castlevania + Improved Controls",
-    "file": "ultimate_castlevania_improved_controls.nes"
-  },
-  {
-    "id": "ultimate_castlevania",
-    "title": "Ultimate Castlevania",
-    "file": "ultimate_castlevania.nes"
-  },
-  {
     "id": "willow",
     "title": "Willow",
     "file": "willow.nes"
@@ -603,10 +393,5 @@
     "id": "wonder_boy",
     "title": "Wonder Boy",
     "file": "wonder_boy.nes"
-  },
-  {
-    "id": "zelda_ancient_dungeon",
-    "title": "Zelda - Ancient Dungeon",
-    "file": "zelda_ancient_dungeon.nes"
   }
 ]
