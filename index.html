@@ -541,11 +541,7 @@
                     for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000 | fb[i];
                     cx.putImageData(img, 0, 0);
                 },
-                onAudioSample: (l, r) => {
-                    ringL[writePtr] = l;
-                    ringR[writePtr] = r;
-                    writePtr = (writePtr + 1) % RING_SIZE;
-                }
+                onAudioSample: onAudioSample
             });
 
             const xhr = new XMLHttpRequest();
@@ -590,7 +586,6 @@
                 if (e.cancelable) e.preventDefault();
                 initAudio();
                 el.classList.add('touching');
-                if (navigator.vibrate) navigator.vibrate(10);
                 if (nes) nes.buttonDown(1, BTN[id]);
             };
             const release = e => {
