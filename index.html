@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>NES Retro Emulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #0a0a0c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #nes-case {
+            width: 100%;
+            max-width: 430px;
+            height: 100%;
+            background: #18181f;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0 auto;
+        }
+        #screen-wrap {
+            width: 100%;
+            aspect-ratio: 256/240;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        canvas#nes {
+            width: 100%;
+            height: 100%;
+            display: block;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        #pad {
+            width: 100%;
+            flex: 1;
+            padding: clamp(10px, 3vw, 16px);
+            background: url('https://raw.githubusercontent.com/gara31/void-md/main/assets/games/bg_kage.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            border-top: 2px solid #333344;
+            position: relative;
+        }
+        #top-ctrl {
+            display: flex;
+            justify-content: center;
+            gap: clamp(16px, 4vw, 28px);
+            align-items: center;
+        }
+        #top-ctrl button {
+            width: clamp(60px, 18vw, 78px);
+            height: clamp(22px, 5.5vw, 28px);
+            background: rgba(20, 20, 28, .88);
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+            cursor: pointer;
+            color: #fff;
+            font-size: clamp(9px, 2.2vw, 11px);
+            font-weight: 900;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .06s, background .06s;
+        }
+        #top-ctrl button:active, #top-ctrl button.touching {
+            transform: translateY(2px);
+            background: #444;
+            box-shadow: 0 0 0 #000;
+        }
+        #main-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4px;
+            gap: clamp(6px, 2vw, 16px);
+        }
+        #dpad {
+            display: grid;
+            grid-template-columns: repeat(3, clamp(38px, 11.5vw, 50px));
+            grid-template-rows: repeat(3, clamp(38px, 11.5vw, 50px));
+            gap: clamp(3px, 1vw, 5px);
+            background: rgba(15, 15, 22, .85);
+            padding: clamp(4px, 1.2vw, 8px);
+            border-radius: 50%;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .8);
+            border: 1px solid rgba(255, 255, 255, .15);
+            flex-shrink: 0;
+        }
+        #dpad button {
+            background: radial-gradient(circle at 35% 35%, #ff4757, #b33939);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: clamp(8px, 2vw, 12px);
+            font-size: clamp(16px, 4.5vw, 22px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 #780f1a;
+            cursor: pointer;
+            transition: transform .06s, background .06s;
+        }
+        #dpad button:active, #dpad button.touching {
+            background: #e84118 !important;
+            transform: scale(.92) translateY(2px);
+            box-shadow: 0 0 0 #780f1a;
+        }
+        #act {
+            display: flex;
+            gap: clamp(10px, 2.8vw, 16px);
+            background: rgba(15, 15, 22, .85);
+            padding: clamp(8px, 2.2vw, 12px) clamp(10px, 3vw, 18px);
+            border-radius: 36px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            align-items: center;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .8);
+            flex-shrink: 0;
+        }
+        #act button {
+            width: clamp(44px, 13vw, 58px);
+            height: clamp(44px, 13vw, 58px);
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: clamp(16px, 4.5vw, 20px);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff4757;
+            box-shadow: 0 4px #b33939;
+            cursor: pointer;
+            transition: transform .06s, background .06s;
+        }
+        #act button:active, #act button.touching {
+            transform: scale(.92) translateY(3px);
+            background: #e84118 !important;
+            box-shadow: 0 1px #b33939;
+        }
+    </style>
+</head>
+<body>
+    <div id="nes-case" oncontextmenu="return false">
+        <div id="screen-wrap">
+            <canvas id="nes" width="256" height="240"></canvas>
+        </div>
+        <div id="pad">
+            <div id="top-ctrl">
+                <button id="sel">SELECT</button>
+                <button id="st">START</button>
+            </div>
+            <div id="main-row">
+                <div id="dpad">
+                    <button id="u" style="grid-column:2">▲</button>
+                    <button id="l" style="grid-column:1;grid-row:2">◀</button>
+                    <div style="grid-column:2;grid-row:2;background:rgba(15,15,22,.85)"></div>
+                    <button id="r" style="grid-column:3;grid-row:2">▶</button>
+                    <button id="d" style="grid-column:2;grid-row:3">▼</button>
+                </div>
+                <div id="act">
+                    <button id="btn-b">B</button>
+                    <button id="btn-a">A</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/gara31/void-md@main/assets/js/jsnes.min.js"></script>
+    <script>
+        const cv = document.getElementById('nes'),
+            cx = cv.getContext('2d', { alpha: false, desynchronized: true }),
+            img = cx.createImageData(256, 240),
+            buf32 = new Uint32Array(img.data.buffer);
+        const SAMPLE_RATE = 44100, BUFFER_SIZE = 2048, RING_SIZE = 65536;
+        const ringL = new Float32Array(RING_SIZE), ringR = new Float32Array(RING_SIZE);
+        let writePtr = 0, readPtr = 0, audioCtx = null, scriptNode = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                try {
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    if (AC) {
+                        audioCtx = new AC({ sampleRate: SAMPLE_RATE, latencyHint: 'interactive' });
+                        scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 0, 2);
+                        scriptNode.onaudioprocess = e => {
+                            const outL = e.outputBuffer.getChannelData(0), outR = e.outputBuffer.getChannelData(1);
+                            const count = (writePtr - readPtr + RING_SIZE) % RING_SIZE;
+                            if (count < BUFFER_SIZE) {
+                                for (let i = 0; i < outL.length; i++) { outL[i] = 0; outR[i] = 0; }
+                                return;
+                            }
+                            for (let i = 0; i < outL.length; i++) {
+                                outL[i] = ringL[readPtr];
+                                outR[i] = ringR[readPtr];
+                                readPtr = (readPtr + 1) % RING_SIZE;
+                            }
+                        };
+                        scriptNode.connect(audioCtx.destination);
+                    }
+                } catch (e) {}
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        const nes = new jsnes.NES({
+            onFrame: fb => {
+                for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000 | fb[i];
+                cx.putImageData(img, 0, 0);
+            },
+            onAudioSample: (l, r) => {
+                ringL[writePtr] = l;
+                ringR[writePtr] = r;
+                writePtr = (writePtr + 1) % RING_SIZE;
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const game = urlParams.get('game') || 'kage';
+        const romUrl = `https://raw.githubusercontent.com/gara31/void-md/main/assets/games/${game}.nes`;
+
+        fetch(romUrl)
+            .then(res => res.arrayBuffer())
+            .then(buffer => {
+                let binary = '';
+                const bytes = new Uint8Array(buffer);
+                for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+                nes.loadROM(binary);
+                function loop() {
+                    nes.frame();
+                    requestAnimationFrame(loop);
+                }
+                requestAnimationFrame(loop);
+            });
+
+        const K = {
+            u: jsnes.Controller.BUTTON_UP,
+            d: jsnes.Controller.BUTTON_DOWN,
+            l: jsnes.Controller.BUTTON_LEFT,
+            r: jsnes.Controller.BUTTON_RIGHT,
+            'btn-a': jsnes.Controller.BUTTON_A,
+            'btn-b': jsnes.Controller.BUTTON_B,
+            st: jsnes.Controller.BUTTON_START,
+            sel: jsnes.Controller.BUTTON_SELECT
+        };
+
+        Object.keys(K).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const press = e => {
+                if (e.cancelable) e.preventDefault();
+                initAudio();
+                el.classList.add('touching');
+                if (navigator.vibrate) navigator.vibrate(12);
+                nes.buttonDown(1, K[id]);
+            };
+            const release = e => {
+                if (e.cancelable) e.preventDefault();
+                el.classList.remove('touching');
+                nes.buttonUp(1, K[id]);
+            };
+            el.addEventListener('pointerdown', press, { passive: false });
+            el.addEventListener('pointerup', release, { passive: false });
+            el.addEventListener('pointercancel', release, { passive: false });
+            el.addEventListener('pointerleave', release, { passive: false });
+            el.addEventListener('touchstart', press, { passive: false });
+            el.addEventListener('touchend', release, { passive: false });
+            el.addEventListener('touchcancel', release, { passive: false });
+        });
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('pointerdown', initAudio, { once: true });
+        document.addEventListener('touchstart', initAudio, { once: true });
+    </script>
+</body>
+</html>
