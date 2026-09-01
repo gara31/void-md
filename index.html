@@ -147,30 +147,46 @@
         }
 
         #game-view {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             display: none;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             background: #000;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 100;
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
         }
+
+        @media (orientation: portrait) {
+            #game-view {
+                width: 100vh;
+                height: 100vw;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
+                transform-origin: center center;
+            }
+        }
+
         .top-action-bar {
-            width: 100%;
-            height: 44px;
-            background: #0a0910;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 38px;
+            background: transparent;
+            border-bottom: none;
+            z-index: 50;
+            padding: 6px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
-            border-bottom: 1px solid #1c1829;
-            flex-shrink: 0;
-            z-index: 25;
         }
         .back-btn {
             background: #1c1830;
@@ -211,15 +227,20 @@
         }
 
         #cabinet {
-            width: 100%;
-            flex: 1.15;
-            background: #000;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: 100%;
+            aspect-ratio: 256 / 240;
+            padding: 0;
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            min-height: 0;
-            position: relative;
+            background: #000;
         }
         #bezel {
             width: 100%;
@@ -233,7 +254,6 @@
         #screen-wrap {
             width: 100%;
             height: 100%;
-            aspect-ratio: 256 / 240;
             max-height: 100%;
             background: #000;
             display: flex;
@@ -253,27 +273,28 @@
         }
 
         #pad {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            height: 240px;
-            background: #0d0c14;
-            border-top: 1px solid #1c1829;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px 24px;
-            position: relative;
-            flex-shrink: 0;
+            height: 100%;
+            background: transparent;
+            border-top: none;
+            padding: 0;
+            pointer-events: none;
+            z-index: 20;
         }
 
         #joystick {
-            width: clamp(124px, 34vw, 150px);
-            height: clamp(124px, 34vw, 150px);
+            position: absolute;
+            left: clamp(20px, 5vw, 48px);
+            bottom: clamp(20px, 5vh, 36px);
+            pointer-events: auto;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             background: #171325;
             border: 2px solid #38314f;
             box-shadow: inset 0 3px 12px rgba(0, 0, 0, .8), 0 4px 10px rgba(0, 0, 0, .5);
-            position: relative;
-            flex-shrink: 0;
             touch-action: none;
         }
         #joystick-knob {
@@ -291,10 +312,12 @@
         }
 
         #act {
-            position: relative;
-            width: clamp(134px, 36vw, 160px);
-            height: clamp(124px, 34vw, 150px);
-            flex-shrink: 0;
+            position: absolute;
+            right: clamp(20px, 5vw, 48px);
+            bottom: clamp(20px, 5vh, 36px);
+            pointer-events: auto;
+            width: 140px;
+            height: 130px;
         }
         #act button {
             position: absolute;
@@ -315,99 +338,18 @@
             box-shadow: 0 1px #8a6200;
         }
         #btn-b {
-            width: clamp(62px, 17vw, 74px);
-            height: clamp(62px, 17vw, 74px);
-            font-size: 23px;
+            width: 66px;
+            height: 66px;
+            font-size: 22px;
             left: 0;
             bottom: 0;
         }
         #btn-a {
-            width: clamp(62px, 17vw, 74px);
-            height: clamp(62px, 17vw, 74px);
-            font-size: 23px;
+            width: 66px;
+            height: 66px;
+            font-size: 22px;
             right: 0;
             top: 0;
-        }
-
-        @media (orientation: landscape) {
-            #app {
-                max-width: 100vw;
-                width: 100vw;
-            }
-            #game-view {
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-            }
-            .top-action-bar {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 38px;
-                background: transparent;
-                border-bottom: none;
-                z-index: 50;
-                padding: 6px 18px;
-            }
-            #cabinet {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: auto;
-                height: 100%;
-                aspect-ratio: 256 / 240;
-                padding: 0;
-                z-index: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            #bezel {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-            #screen-wrap {
-                width: 100%;
-                height: 100%;
-                max-height: 100%;
-            }
-            #pad {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                background: transparent;
-                border-top: none;
-                padding: 0;
-                pointer-events: none;
-                z-index: 20;
-            }
-            #joystick {
-                position: absolute;
-                left: clamp(20px, 5vw, 48px);
-                bottom: clamp(20px, 5vh, 36px);
-                pointer-events: auto;
-                width: 130px;
-                height: 130px;
-            }
-            #act {
-                position: absolute;
-                right: clamp(20px, 5vw, 48px);
-                bottom: clamp(20px, 5vh, 36px);
-                pointer-events: auto;
-                width: 140px;
-                height: 130px;
-            }
-            #btn-b, #btn-a {
-                width: 66px;
-                height: 66px;
-                font-size: 22px;
-            }
         }
     </style>
 </head>
