@@ -472,106 +472,94 @@
 
     <script src="assets/js/jsnes.min.js"></script>
     <script>
+        function RingBuffer(capacity) {
+            this._elements = new Array(capacity || 50);
+            this._first = 0;
+            this._size = 0;
+        }
+        RingBuffer.prototype.capacity = function() { return this._elements.length; };
+        RingBuffer.prototype.size = function() { return this._size; };
+        RingBuffer.prototype.isEmpty = function() { return this._size === 0; };
+        RingBuffer.prototype.isFull = function() { return this._size === this.capacity(); };
+        RingBuffer.prototype.enq = function(element) {
+            const end = (this._first + this._size) % this.capacity();
+            this._elements[end] = element;
+            if (this.isFull()) {
+                this._first = (this._first + 1) % this.capacity();
+            } else {
+                this._size++;
+            }
+            return this._size;
+        };
+        RingBuffer.prototype.deqN = function(count) {
+            if (count > this._size) count = this._size;
+            const res = new Array(count);
+            for (let i = 0; i < count; i++) {
+                res[i] = this._elements[this._first];
+                this._first = (this._first + 1) % this.capacity();
+            }
+            this._size -= count;
+            return res;
+        };
+
         const cv = document.getElementById('nes'),
             cx = cv.getContext('2d', { alpha: false, desynchronized: true }),
             img = cx.createImageData(256, 240),
             buf32 = new Uint32Array(img.data.buffer);
-        const SAMPLE_RATE = 44100;
-        let audioCtx = null, workletNode = null, scriptNode = null, nes = null, animId = null;
-        const RING_SIZE = 16384;
-        const ringL = new Float32Array(RING_SIZE), ringR = new Float32Array(RING_SIZE);
-        let writePtr = 0, readPtr = 0;
 
-        const workletCode = `
-class NesAudioProcessor extends AudioWorkletProcessor {
-    constructor() {
-        super();
-        this.ringL = new Float32Array(${RING_SIZE});
-        this.ringR = new Float32Array(${RING_SIZE});
-        this.writePtr = 0;
-        this.readPtr = 0;
-        this.port.onmessage = e => {
-            const data = e.data;
-            const l = data.l, r = data.r;
-            for (let i = 0; i < l.length; i++) {
-                this.ringL[this.writePtr] = l[i];
-                this.ringR[this.writePtr] = r[i];
-                this.writePtr = (this.writePtr + 1) % ${RING_SIZE};
+        class OfficialSpeakers {
+            constructor() {
+                this.bufferSize = 8192;
+                this.buffer = new RingBuffer(this.bufferSize * 2);
+                this.audioCtx = null;
+                this.scriptNode = null;
             }
-        };
-    }
-    process(inputs, outputs) {
-        const outL = outputs[0][0];
-        const outR = outputs[0][1];
-        if (!outL) return true;
-        const count = (this.writePtr - this.readPtr + ${RING_SIZE}) % ${RING_SIZE};
-        if (count < outL.length) {
-            for (let i = 0; i < outL.length; i++) { outL[i] = 0; outR[i] = 0; }
-            return true;
-        }
-        for (let i = 0; i < outL.length; i++) {
-            outL[i] = this.ringL[this.readPtr];
-            outR[i] = this.ringR[this.readPtr];
-            this.readPtr = (this.readPtr + 1) % ${RING_SIZE};
-        }
-        return true;
-    }
-}
-registerProcessor('nes-audio-processor', NesAudioProcessor);
-`;
-
-        let sampleChunkL = new Float32Array(256), sampleChunkR = new Float32Array(256);
-        let chunkIndex = 0;
-
-        async function initAudio() {
-            if (!audioCtx) {
-                try {
-                    const AC = window.AudioContext || window.webkitAudioContext;
-                    if (AC) {
-                        audioCtx = new AC({ sampleRate: SAMPLE_RATE });
-                        if (audioCtx.audioWorklet) {
-                            const blob = new Blob([workletCode], { type: 'application/javascript' });
-                            const url = URL.createObjectURL(blob);
-                            await audioCtx.audioWorklet.addModule(url);
-                            workletNode = new AudioWorkletNode(audioCtx, 'nes-audio-processor');
-                            workletNode.connect(audioCtx.destination);
-                        } else {
-                            scriptNode = audioCtx.createScriptProcessor(1024, 0, 2);
-                            scriptNode.onaudioprocess = e => {
-                                const outL = e.outputBuffer.getChannelData(0), outR = e.outputBuffer.getChannelData(1);
-                                const count = (writePtr - readPtr + RING_SIZE) % RING_SIZE;
-                                if (count < 1024) {
-                                    for (let i = 0; i < outL.length; i++) { outL[i] = 0; outR[i] = 0; }
-                                    return;
-                                }
-                                for (let i = 0; i < outL.length; i++) {
-                                    outL[i] = ringL[readPtr];
-                                    outR[i] = ringR[readPtr];
-                                    readPtr = (readPtr + 1) % RING_SIZE;
-                                }
-                            };
-                            scriptNode.connect(audioCtx.destination);
-                        }
-                    }
-                } catch (e) {}
+            start() {
+                if (!window.AudioContext && !window.webkitAudioContext) return;
+                const AC = window.AudioContext || window.webkitAudioContext;
+                this.audioCtx = new AC();
+                this.scriptNode = this.audioCtx.createScriptProcessor(1024, 0, 2);
+                this.scriptNode.onaudioprocess = this.onaudioprocess.bind(this);
+                this.scriptNode.connect(this.audioCtx.destination);
             }
-            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            writeSample(l, r) {
+                if (this.buffer.size() / 2 >= this.bufferSize) {
+                    this.buffer.deqN(this.bufferSize / 2);
+                }
+                this.buffer.enq(l);
+                this.buffer.enq(r);
+            }
+            onaudioprocess(e) {
+                const left = e.outputBuffer.getChannelData(0);
+                const right = e.outputBuffer.getChannelData(1);
+                const size = left.length;
+
+                if (this.buffer.size() < size * 2) {
+                    for (let j = 0; j < size; j++) { left[j] = 0; right[j] = 0; }
+                    return;
+                }
+                const samples = this.buffer.deqN(size * 2);
+                for (let i = 0; i < size; i++) {
+                    left[i] = samples[i * 2] || 0;
+                    right[i] = samples[i * 2 + 1] || 0;
+                }
+            }
+        }
+
+        const speakers = new OfficialSpeakers();
+        let nes = null, animId = null;
+
+        function initAudio() {
+            if (!speakers.audioCtx) {
+                speakers.start();
+            }
+            if (speakers.audioCtx && speakers.audioCtx.state === 'suspended') {
+                speakers.audioCtx.resume();
+            }
         }
 
         function onAudioSample(l, r) {
-            if (workletNode) {
-                sampleChunkL[chunkIndex] = l;
-                sampleChunkR[chunkIndex] = r;
-                chunkIndex++;
-                if (chunkIndex >= 256) {
-                    workletNode.port.postMessage({ l: sampleChunkL, r: sampleChunkR });
-                    chunkIndex = 0;
-                }
-            } else {
-                ringL[writePtr] = l;
-                ringR[writePtr] = r;
-                writePtr = (writePtr + 1) % RING_SIZE;
-            }
+            speakers.writeSample(l, r);
         }
 
         function playGame(romName) {
