@@ -146,6 +146,42 @@
             pointer-events: none;
         }
 
+        #rotate-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #0a0910;
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+        #rotate-overlay .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            animation: rotateAnim 2s infinite ease-in-out;
+        }
+        #rotate-overlay .title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ff2d55;
+            margin-bottom: 8px;
+            font-family: 'Press Start 2P', monospace;
+            line-height: 1.5;
+        }
+        #rotate-overlay .desc {
+            font-size: 13px;
+            color: #a09cb5;
+            max-width: 280px;
+            line-height: 1.4;
+        }
+        @keyframes rotateAnim {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+        }
+
         #game-view {
             width: 100vw;
             height: 100vh;
@@ -164,13 +200,9 @@
         }
 
         @media (orientation: portrait) {
-            #game-view {
-                width: 100vh;
-                height: 100vw;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(90deg);
-                transform-origin: center center;
+            #game-view.active ~ #rotate-overlay,
+            body.in-game #rotate-overlay {
+                display: flex;
             }
         }
 
