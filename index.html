@@ -477,8 +477,11 @@
             img = cx.createImageData(256, 240),
             buf32 = new Uint32Array(img.data.buffer);
 
-        let audioCtx = null, nes = null, animId = null;
-        let nextPlayTime = 0;
+        let audioCtx = null, scriptNode = null, nes = null, animId = null;
+        const BUFFER_SIZE = 1024;
+        const ringL = new Float32Array(8192);
+        const ringR = new Float32Array(8192);
+        let writePtr = 0, readPtr = 0;
 
         function initAudio() {
             if (!audioCtx) {
@@ -486,42 +489,37 @@
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (AC) {
                         audioCtx = new AC({ latencyHint: 'interactive' });
-                        nextPlayTime = audioCtx.currentTime;
+                        scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 0, 2);
+                        scriptNode.onaudioprocess = e => {
+                            const outL = e.outputBuffer.getChannelData(0);
+                            const outR = e.outputBuffer.getChannelData(1);
+                            const count = (writePtr - readPtr + 8192) % 8192;
+
+                            if (count < BUFFER_SIZE) {
+                                for (let i = 0; i < outL.length; i++) {
+                                    outL[i] = 0;
+                                    outR[i] = 0;
+                                }
+                                return;
+                            }
+
+                            for (let i = 0; i < outL.length; i++) {
+                                outL[i] = ringL[readPtr];
+                                outR[i] = ringR[readPtr];
+                                readPtr = (readPtr + 1) % 8192;
+                            }
+                        };
+                        scriptNode.connect(audioCtx.destination);
                     }
                 } catch (e) {}
             }
             if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         }
 
-        const CHUNK_SIZE = 512;
-        const leftBuffer = new Float32Array(CHUNK_SIZE);
-        const rightBuffer = new Float32Array(CHUNK_SIZE);
-        let sampleIndex = 0;
-
         function onAudioSample(l, r) {
-            leftBuffer[sampleIndex] = l;
-            rightBuffer[sampleIndex] = r;
-            sampleIndex++;
-
-            if (sampleIndex >= CHUNK_SIZE) {
-                if (audioCtx && audioCtx.state === 'running') {
-                    const buffer = audioCtx.createBuffer(2, CHUNK_SIZE, 44100);
-                    buffer.getChannelData(0).set(leftBuffer);
-                    buffer.getChannelData(1).set(rightBuffer);
-
-                    const source = audioCtx.createBufferSource();
-                    source.buffer = buffer;
-                    source.connect(audioCtx.destination);
-
-                    const now = audioCtx.currentTime;
-                    if (nextPlayTime < now) {
-                        nextPlayTime = now + 0.02;
-                    }
-                    source.start(nextPlayTime);
-                    nextPlayTime += buffer.duration;
-                }
-                sampleIndex = 0;
-            }
+            ringL[writePtr] = l;
+            ringR[writePtr] = r;
+            writePtr = (writePtr + 1) % 8192;
         }
 
         function playGame(romName) {
