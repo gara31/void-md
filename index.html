@@ -21,7 +21,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background: #07070c;
+            background: #000;
             font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #fff;
             overflow: hidden;
@@ -37,8 +37,6 @@
             flex-direction: column;
             background: #0f0d16;
             position: relative;
-            border-left: 1px solid #1e1a2b;
-            border-right: 1px solid #1e1a2b;
         }
 
         #hub-view {
@@ -161,10 +159,6 @@
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
-            padding-top: env(safe-area-inset-top);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-            padding-bottom: env(safe-area-inset-bottom);
         }
         .game-top-nav {
             height: 40px;
@@ -194,14 +188,14 @@
         }
         #cabinet {
             width: 100%;
-            padding: 12px 12px 6px;
+            padding: 8px 12px 4px;
             flex-shrink: 0;
         }
         #bezel {
             background: #171325;
             border: 1px solid #322c48;
-            border-radius: 14px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 6px;
             position: relative;
             box-shadow: 0 6px 18px rgba(0, 0, 0, .55);
         }
@@ -218,69 +212,58 @@
         .rivet.br { bottom: 6px; right: 6px; }
         #screen-wrap {
             width: 100%;
-            height: 40vh;
+            aspect-ratio: 256 / 240;
+            max-height: 44vh;
             background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            border-radius: 6px;
-            border: 1px solid #000;
+            border-radius: 4px;
         }
         canvas#nes {
             width: 100%;
             height: 100%;
+            object-fit: contain;
             display: block;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
             transform: translateZ(0);
-            will-change: transform;
         }
-        #scanlines {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0) 0px,
-                rgba(0, 0, 0, 0) 1px,
-                rgba(0, 0, 0, .16) 2px
-            );
-            mix-blend-mode: multiply;
-        }
+
         #pad {
             width: 100%;
             flex: 1;
-            padding: clamp(10px, 2.8vw, 16px) clamp(12px, 3.5vw, 20px);
+            padding: 8px 16px 14px;
             background: #100e18;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-between;
             position: relative;
         }
         #top-ctrl {
             display: flex;
             justify-content: center;
-            gap: clamp(16px, 4vw, 28px);
+            gap: 20px;
             align-items: center;
         }
         #top-ctrl button {
-            width: clamp(58px, 17vw, 74px);
-            height: clamp(20px, 5vw, 26px);
+            width: 68px;
+            height: 24px;
             background: #1c1830;
             border: 1px solid #362f4d;
             border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
             cursor: pointer;
             color: #9d99b3;
-            font-size: clamp(9px, 2.1vw, 10px);
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: .5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform .06s, background .06s;
+            transition: transform .05s, background .05s;
         }
         #top-ctrl button:active, #top-ctrl button.touching {
             transform: translateY(2px);
@@ -291,12 +274,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 4px 4px 0;
-            gap: clamp(6px, 2vw, 16px);
+            width: 100%;
+            padding: 0 4px;
         }
         #joystick {
-            width: clamp(98px, 29vw, 132px);
-            height: clamp(98px, 29vw, 132px);
+            width: clamp(90px, 26vw, 110px);
+            height: clamp(90px, 26vw, 110px);
             border-radius: 50%;
             background: #171325;
             border: 2px solid #322c48;
@@ -316,12 +299,12 @@
             top: 28%;
             left: 28%;
             pointer-events: none;
-            transition: transform .04s linear;
+            transition: transform .03s linear;
         }
         #act {
             position: relative;
-            width: clamp(118px, 32vw, 148px);
-            height: clamp(96px, 26vw, 118px);
+            width: clamp(100px, 28vw, 120px);
+            height: clamp(90px, 26vw, 110px);
             flex-shrink: 0;
         }
         #act button {
@@ -336,122 +319,124 @@
             background: #ffb703;
             box-shadow: 0 4px #8a6200;
             cursor: pointer;
-            transition: transform .06s, box-shadow .06s;
+            transition: transform .05s, box-shadow .05s;
         }
         #act button:active, #act button.touching {
             transform: translateY(3px);
             box-shadow: 0 1px #8a6200;
         }
         #btn-b {
-            width: clamp(58px, 16vw, 72px);
-            height: clamp(58px, 16vw, 72px);
-            font-size: clamp(19px, 5vw, 23px);
+            width: clamp(48px, 13vw, 56px);
+            height: clamp(48px, 13vw, 56px);
+            font-size: 18px;
             left: 0;
             bottom: 0;
         }
         #btn-a {
-            width: clamp(58px, 16vw, 72px);
-            height: clamp(58px, 16vw, 72px);
-            font-size: clamp(19px, 5vw, 23px);
+            width: clamp(48px, 13vw, 56px);
+            height: clamp(48px, 13vw, 56px);
+            font-size: 18px;
             right: 0;
             top: 0;
         }
 
         @media (orientation: landscape) {
+            #app {
+                max-width: 100vw;
+                width: 100vw;
+            }
             #game-view {
                 flex-direction: row;
-                align-items: stretch;
+                justify-content: center;
+                align-items: center;
+                position: relative;
             }
-
             .game-top-nav {
                 position: absolute;
-                top: env(safe-area-inset-top);
-                left: env(safe-area-inset-left);
-                right: env(safe-area-inset-right);
+                top: 0;
+                left: 0;
+                right: 0;
                 height: 34px;
-                background: rgba(16, 14, 24, .82);
+                background: transparent;
                 border-bottom: none;
-                z-index: 30;
+                z-index: 50;
+                padding: 4px 16px;
             }
-
             #cabinet {
-                flex: 1;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
                 width: auto;
                 height: 100%;
+                aspect-ratio: 256 / 240;
                 padding: 0;
+                z-index: 1;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: #000;
             }
             #bezel {
-                height: 100%;
                 width: 100%;
+                height: 100%;
+                border: none;
                 border-radius: 0;
                 padding: 0;
                 background: #000;
-                border: none;
-                box-shadow: none;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
             .rivet { display: none; }
             #screen-wrap {
-                height: 100%;
-                width: auto;
-                max-width: 100%;
-                aspect-ratio: 256 / 240;
-                border-radius: 0;
-                border: none;
-            }
-
-            #pad {
-                position: static;
-                width: auto;
-                flex: none;
-                padding: 0 14px;
-                background: #100e18;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 24px;
-                min-width: 160px;
-                max-width: 200px;
-                border-left: 1px solid #241f34;
-            }
-
-            #top-ctrl {
-                position: static;
-                transform: none;
-                flex-direction: column;
-                gap: 12px;
-            }
-            #top-ctrl button {
                 width: 100%;
-                height: 32px;
-                font-size: 11px;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
             }
-
+            #pad {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+                padding: 0;
+                pointer-events: none;
+                z-index: 20;
+            }
+            #top-ctrl {
+                position: absolute;
+                bottom: 8px;
+                left: 50%;
+                transform: translateX(-50%);
+                gap: 16px;
+                pointer-events: auto;
+            }
             #main-row {
-                position: static;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
                 padding: 0;
             }
             #joystick {
-                width: 120px;
-                height: 120px;
+                position: absolute;
+                left: clamp(16px, 4vw, 40px);
+                bottom: clamp(16px, 4vh, 32px);
+                width: 100px;
+                height: 100px;
+                pointer-events: auto;
             }
             #act {
-                width: 140px;
-                height: 140px;
+                position: absolute;
+                right: clamp(16px, 4vw, 40px);
+                bottom: clamp(16px, 4vh, 32px);
+                width: 110px;
+                height: 90px;
+                pointer-events: auto;
             }
             #btn-b, #btn-a {
-                width: 72px;
-                height: 72px;
-                font-size: 24px;
+                width: 52px;
+                height: 52px;
+                font-size: 19px;
             }
         }
     </style>
@@ -502,7 +487,6 @@
                     <div class="rivet br"></div>
                     <div id="screen-wrap">
                         <canvas id="nes" width="256" height="240"></canvas>
-                        <div id="scanlines"></div>
                     </div>
                 </div>
             </div>
@@ -624,7 +608,7 @@
                 if (e.cancelable) e.preventDefault();
                 initAudio();
                 el.classList.add('touching');
-                if (navigator.vibrate) navigator.vibrate(12);
+                if (navigator.vibrate) navigator.vibrate(10);
                 if (nes) nes.buttonDown(1, BTN[id]);
             };
             const release = e => {
@@ -714,7 +698,7 @@
         const endStick = e => {
             if (!stickActive) return;
             stickActive = false;
-            knob.style.transition = 'transform .12s ease-out';
+            knob.style.transition = 'transform .1s ease-out';
             resetStick();
         };
         stick.addEventListener('pointerup', endStick, { passive: false });
