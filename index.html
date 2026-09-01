@@ -476,7 +476,7 @@
             cx = cv.getContext('2d', { alpha: false, desynchronized: true }),
             img = cx.createImageData(256, 240),
             buf32 = new Uint32Array(img.data.buffer);
-        const SAMPLE_RATE = 44100, BUFFER_SIZE = 2048, RING_SIZE = 65536;
+        const SAMPLE_RATE = 44100, BUFFER_SIZE = 1024, RING_SIZE = 32768;
         const ringL = new Float32Array(RING_SIZE), ringR = new Float32Array(RING_SIZE);
         let writePtr = 0, readPtr = 0, audioCtx = null, scriptNode = null;
         let nes = null, animId = null;
@@ -486,7 +486,7 @@
                 try {
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (AC) {
-                        audioCtx = new AC({ sampleRate: SAMPLE_RATE, latencyHint: 'interactive' });
+                        audioCtx = new AC();
                         scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 0, 2);
                         scriptNode.onaudioprocess = e => {
                             const outL = e.outputBuffer.getChannelData(0), outR = e.outputBuffer.getChannelData(1);
@@ -505,10 +505,18 @@
                     }
                 } catch (e) {}
             }
-            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx) {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }
         }
 
         function onAudioSample(l, r) {
+            const count = (writePtr - readPtr + RING_SIZE) % RING_SIZE;
+            if (count > 4096) {
+                readPtr = (readPtr + (count - 1024)) % RING_SIZE;
+            }
             ringL[writePtr] = l;
             ringR[writePtr] = r;
             writePtr = (writePtr + 1) % RING_SIZE;
