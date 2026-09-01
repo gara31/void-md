@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-    <title>Kanara Arcade - PSP Controller</title>
+    <title>Kanara Arcade</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background: #000;
+            background: #07070c;
             font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #fff;
             overflow: hidden;
@@ -35,8 +35,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background: #0d0c14;
+            background: #0f0d16;
             position: relative;
+            border-left: 1px solid #1e1a2b;
+            border-right: 1px solid #1e1a2b;
         }
 
         #hub-view {
@@ -93,6 +95,18 @@
             user-select: none;
             -webkit-user-select: none;
         }
+        .cart::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 14px;
+            width: 26px;
+            height: 8px;
+            background: #0f0d16;
+            border: 1px solid #2c2740;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
         .cart:active {
             background: #1e1930;
         }
@@ -109,13 +123,17 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            pointer-events: none;
         }
         .cart-label {
-            margin-top: 8px;
-            padding: 0 2px;
+            margin-top: 9px;
+            padding: 7px 8px;
+            background: #ff2d55;
+            border-radius: 3px;
+            pointer-events: none;
         }
         .cart-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #fff;
             white-space: nowrap;
@@ -123,9 +141,11 @@
             text-overflow: ellipsis;
         }
         .cart-meta {
-            font-size: 11px;
-            color: #8c88a8;
-            margin-top: 2px;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #5e5a75;
+            letter-spacing: .3px;
+            pointer-events: none;
         }
 
         #game-view {
@@ -133,97 +153,89 @@
             height: 100%;
             display: none;
             flex-direction: column;
-            background: #0b0a10;
+            background: #0f0d16;
             position: absolute;
             top: 0;
             left: 0;
             z-index: 10;
+            touch-action: none;
             user-select: none;
             -webkit-user-select: none;
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
         }
-
-        .shoulder-bar {
-            width: 100%;
-            height: 38px;
+        .game-top-nav {
+            height: 40px;
+            background: #100e18;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 4px 16px;
-            background: #08070d;
-            border-bottom: 1px solid #1c1829;
+            padding: 0 12px;
+            border-bottom: 1px solid #241f34;
             flex-shrink: 0;
-            z-index: 25;
         }
-        .shoulder-btn {
-            width: clamp(72px, 20vw, 92px);
-            height: 28px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 4px 14px 4px 4px;
-            color: #bbb;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.6);
-            transition: transform .05s, background .05s;
-        }
-        .shoulder-btn.r-btn {
-            border-radius: 14px 4px 4px 4px;
-        }
-        .shoulder-btn:active, .shoulder-btn.touching {
-            transform: translateY(2px);
-            background: rgba(255,255,255,0.25);
+        .back-btn {
+            background: #1e1930;
+            border: 1px solid #362f4d;
             color: #fff;
-        }
-        .top-info {
             font-size: 11px;
             font-weight: 700;
-            color: #666;
-            letter-spacing: 0.5px;
+            padding: 5px 11px;
+            border-radius: 6px;
+            cursor: pointer;
         }
-
+        .current-game-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #a09cb5;
+            letter-spacing: .2px;
+        }
         #cabinet {
             width: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 4px;
+            padding: 12px 12px 6px;
             flex-shrink: 0;
         }
         #bezel {
-            background: #08070d;
-            border: 2px solid #1b1726;
-            border-radius: 8px;
-            padding: 4px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #171325;
+            border: 1px solid #322c48;
+            border-radius: 14px;
+            padding: 10px;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .55);
         }
+        .rivet {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #3a3552;
+        }
+        .rivet.tl { top: 6px; left: 6px; }
+        .rivet.tr { top: 6px; right: 6px; }
+        .rivet.bl { bottom: 6px; left: 6px; }
+        .rivet.br { bottom: 6px; right: 6px; }
         #screen-wrap {
             width: 100%;
-            aspect-ratio: 256 / 240;
-            max-height: 44vh;
+            height: 40vh;
             background: #000;
-            position: relative;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid #000;
         }
         canvas#nes {
             width: 100%;
             height: 100%;
-            object-fit: contain;
             display: block;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
             transform: translateZ(0);
+            will-change: transform;
         }
         #scanlines {
             position: absolute;
@@ -233,278 +245,213 @@
                 to bottom,
                 rgba(0, 0, 0, 0) 0px,
                 rgba(0, 0, 0, 0) 1px,
-                rgba(0, 0, 0, .15) 2px
+                rgba(0, 0, 0, .16) 2px
             );
             mix-blend-mode: multiply;
         }
-
         #pad {
             width: 100%;
             flex: 1;
-            padding: 6px 12px 10px;
-            background: #0b0a10;
+            padding: clamp(10px, 2.8vw, 16px) clamp(12px, 3.5vw, 20px);
+            background: #100e18;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-around;
             position: relative;
         }
-
-        #controls-row {
+        #top-ctrl {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: clamp(16px, 4vw, 28px);
             align-items: center;
-            width: 100%;
-            padding: 0 4px;
         }
-
-        .left-cluster {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 2.5vw, 16px);
-        }
-
-        #dpad {
-            display: grid;
-            grid-template-columns: repeat(3, clamp(34px, 9.5vw, 42px));
-            grid-template-rows: repeat(3, clamp(34px, 9.5vw, 42px));
-            gap: 2px;
-            background: #15131f;
-            padding: 4px;
+        #top-ctrl button {
+            width: clamp(58px, 17vw, 74px);
+            height: clamp(20px, 5vw, 26px);
+            background: #1c1830;
+            border: 1px solid #362f4d;
             border-radius: 12px;
-            border: 1px solid #282438;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.8), 0 3px 8px rgba(0,0,0,0.5);
-            flex-shrink: 0;
-        }
-        .dpad-btn {
-            background: #252233;
-            border: 1px solid #3d3752;
-            color: #a5a0bf;
-            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+            cursor: pointer;
+            color: #9d99b3;
+            font-size: clamp(9px, 2.1vw, 10px);
+            font-weight: 700;
+            letter-spacing: .5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: transform .05s, background .05s;
+            transition: transform .06s, background .06s;
         }
-        .dpad-btn:active, .dpad-btn.touching {
-            background: #463e63;
+        #top-ctrl button:active, #top-ctrl button.touching {
+            transform: translateY(2px);
+            background: #2a2440;
             color: #fff;
-            transform: scale(0.92);
         }
-        #d-u { grid-column: 2; grid-row: 1; border-radius: 6px 6px 2px 2px; }
-        #d-l { grid-column: 1; grid-row: 2; border-radius: 6px 2px 2px 6px; }
-        #d-c { grid-column: 2; grid-row: 2; background: #1a1726; border: none; pointer-events: none; }
-        #d-r { grid-column: 3; grid-row: 2; border-radius: 2px 6px 6px 2px; }
-        #d-d { grid-column: 2; grid-row: 3; border-radius: 2px 2px 6px 6px; }
-
+        #main-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 4px 0;
+            gap: clamp(6px, 2vw, 16px);
+        }
         #joystick {
-            width: clamp(74px, 20vw, 92px);
-            height: clamp(74px, 20vw, 92px);
+            width: clamp(98px, 29vw, 132px);
+            height: clamp(98px, 29vw, 132px);
             border-radius: 50%;
-            background: radial-gradient(circle, #1a1824 0%, #0e0d14 100%);
-            border: 2px solid #2d283d;
-            box-shadow: inset 0 3px 8px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.6);
+            background: #171325;
+            border: 2px solid #322c48;
+            box-shadow: inset 0 3px 10px rgba(0, 0, 0, .7);
             position: relative;
             flex-shrink: 0;
             touch-action: none;
         }
         #joystick-knob {
-            width: 46%;
-            height: 46%;
+            width: 44%;
+            height: 44%;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #423d57 0%, #201c2e 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.8);
+            background: #ff2d55;
+            border: 1px solid rgba(255, 255, 255, .35);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .7);
             position: absolute;
-            top: 27%;
-            left: 27%;
+            top: 28%;
+            left: 28%;
             pointer-events: none;
-            transition: transform .03s linear;
+            transition: transform .04s linear;
         }
-
-        #ps-cluster {
+        #act {
             position: relative;
-            width: clamp(118px, 32vw, 140px);
-            height: clamp(118px, 32vw, 140px);
+            width: clamp(118px, 32vw, 148px);
+            height: clamp(96px, 26vw, 118px);
             flex-shrink: 0;
         }
-        .ps-btn {
+        #act button {
             position: absolute;
-            width: clamp(38px, 10.5vw, 46px);
-            height: clamp(38px, 10.5vw, 46px);
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #252233 0%, #171521 100%);
-            border: 1px solid #3d3752;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            font-size: clamp(17px, 4.8vw, 21px);
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform .05s, box-shadow .05s;
-        }
-        .ps-btn:active, .ps-btn.touching {
-            transform: scale(0.92) translateY(2px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.9);
-        }
-        #btn-triangle {
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #00d2d3;
-        }
-        #btn-square {
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff6b81;
-        }
-        #btn-circle {
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff4757;
-        }
-        #btn-cross {
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #54a0ff;
-        }
-
-        #bottom-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(10px, 3vw, 18px);
-            padding-top: 4px;
-        }
-        .psp-pill {
-            padding: 4px 14px;
-            background: #161421;
-            border: 1px solid #2e293f;
-            border-radius: 12px;
-            color: #8c87a3;
-            font-size: 10px;
+            border: none;
+            color: #100e18;
             font-weight: 800;
-            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffb703;
+            box-shadow: 0 4px #8a6200;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.6);
-            transition: transform .05s, color .05s;
+            transition: transform .06s, box-shadow .06s;
         }
-        .psp-pill:active, .psp-pill.touching {
-            transform: translateY(1px);
-            color: #fff;
-            background: #252136;
+        #act button:active, #act button.touching {
+            transform: translateY(3px);
+            box-shadow: 0 1px #8a6200;
+        }
+        #btn-b {
+            width: clamp(58px, 16vw, 72px);
+            height: clamp(58px, 16vw, 72px);
+            font-size: clamp(19px, 5vw, 23px);
+            left: 0;
+            bottom: 0;
+        }
+        #btn-a {
+            width: clamp(58px, 16vw, 72px);
+            height: clamp(58px, 16vw, 72px);
+            font-size: clamp(19px, 5vw, 23px);
+            right: 0;
+            top: 0;
         }
 
         @media (orientation: landscape) {
-            #app {
-                max-width: 100vw;
-                width: 100vw;
-            }
             #game-view {
                 flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                position: relative;
+                align-items: stretch;
             }
-            .shoulder-bar {
+
+            .game-top-nav {
                 position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                background: transparent;
-                border: none;
-                padding: 6px 16px;
-                z-index: 50;
+                top: env(safe-area-inset-top);
+                left: env(safe-area-inset-left);
+                right: env(safe-area-inset-right);
+                height: 34px;
+                background: rgba(16, 14, 24, .82);
+                border-bottom: none;
+                z-index: 30;
             }
+
             #cabinet {
-                position: absolute;
-                top: 0;
-                bottom: 34px;
-                left: 50%;
-                transform: translateX(-50%);
+                flex: 1;
                 width: auto;
-                height: calc(100vh - 34px);
-                max-width: calc(100vw - 440px);
-                aspect-ratio: 256 / 240;
+                height: 100%;
                 padding: 0;
-                z-index: 1;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background: #000;
             }
             #bezel {
-                width: 100%;
                 height: 100%;
-                border: none;
+                width: 100%;
                 border-radius: 0;
                 padding: 0;
-            }
-            #screen-wrap {
-                max-height: 100%;
-                height: 100%;
-                width: 100%;
-            }
-            #pad {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                background: transparent;
-                padding: 0;
-                pointer-events: none;
-                z-index: 20;
-            }
-            #controls-row {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                padding: 0;
-            }
-            .left-cluster {
-                position: absolute;
-                left: clamp(12px, 3vw, 28px);
-                bottom: clamp(14px, 3.5vh, 24px);
-                pointer-events: auto;
-                gap: 12px;
+                background: #000;
+                border: none;
+                box-shadow: none;
                 display: flex;
-                flex-direction: row;
                 align-items: center;
+                justify-content: center;
             }
-            #dpad {
-                grid-template-columns: repeat(3, 32px);
-                grid-template-rows: repeat(3, 32px);
+            .rivet { display: none; }
+            #screen-wrap {
+                height: 100%;
+                width: auto;
+                max-width: 100%;
+                aspect-ratio: 256 / 240;
+                border-radius: 0;
+                border: none;
+            }
+
+            #pad {
+                position: static;
+                width: auto;
+                flex: none;
+                padding: 0 14px;
+                background: #100e18;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 24px;
+                min-width: 160px;
+                max-width: 200px;
+                border-left: 1px solid #241f34;
+            }
+
+            #top-ctrl {
+                position: static;
+                transform: none;
+                flex-direction: column;
+                gap: 12px;
+            }
+            #top-ctrl button {
+                width: 100%;
+                height: 32px;
+                font-size: 11px;
+            }
+
+            #main-row {
+                position: static;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 0;
             }
             #joystick {
-                width: 68px;
-                height: 68px;
+                width: 120px;
+                height: 120px;
             }
-            #ps-cluster {
-                position: absolute;
-                right: clamp(16px, 3vw, 32px);
-                bottom: clamp(14px, 3.5vh, 24px);
-                width: 110px;
-                height: 110px;
-                pointer-events: auto;
+            #act {
+                width: 140px;
+                height: 140px;
             }
-            .ps-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-            #bottom-bar {
-                position: absolute;
-                bottom: 8px;
-                left: 50%;
-                transform: translateX(-50%);
-                pointer-events: auto;
-                z-index: 30;
+            #btn-b, #btn-a {
+                width: 72px;
+                height: 72px;
+                font-size: 24px;
             }
         }
     </style>
@@ -542,48 +489,36 @@
         </div>
 
         <div id="game-view">
-            <div class="shoulder-bar">
-                <button type="button" class="shoulder-btn l-btn" id="btn-l">L</button>
-                <div class="top-info" id="game-title">PSP HYBRID</div>
-                <button type="button" class="shoulder-btn r-btn" id="btn-r">R</button>
+            <div class="game-top-nav">
+                <button type="button" class="back-btn" onclick="backToHub()">KEMBALI</button>
+                <div class="current-game-title" id="game-title">Game</div>
+                <div style="width:58px"></div>
             </div>
-
             <div id="cabinet">
                 <div id="bezel">
+                    <div class="rivet tl"></div>
+                    <div class="rivet tr"></div>
+                    <div class="rivet bl"></div>
+                    <div class="rivet br"></div>
                     <div id="screen-wrap">
                         <canvas id="nes" width="256" height="240"></canvas>
                         <div id="scanlines"></div>
                     </div>
                 </div>
             </div>
-
             <div id="pad">
-                <div id="controls-row">
-                    <div class="left-cluster">
-                        <div id="dpad">
-                            <button type="button" class="dpad-btn" id="d-u">▲</button>
-                            <button type="button" class="dpad-btn" id="d-l">◀</button>
-                            <div id="d-c"></div>
-                            <button type="button" class="dpad-btn" id="d-r">▶</button>
-                            <button type="button" class="dpad-btn" id="d-d">▼</button>
-                        </div>
-                        <div id="joystick">
-                            <div id="joystick-knob"></div>
-                        </div>
-                    </div>
-
-                    <div id="ps-cluster">
-                        <button type="button" class="ps-btn" id="btn-triangle">△</button>
-                        <button type="button" class="ps-btn" id="btn-square">□</button>
-                        <button type="button" class="ps-btn" id="btn-circle">○</button>
-                        <button type="button" class="ps-btn" id="btn-cross">✕</button>
-                    </div>
+                <div id="top-ctrl">
+                    <button id="sel">SELECT</button>
+                    <button id="st">START</button>
                 </div>
-
-                <div id="bottom-bar">
-                    <button type="button" class="psp-pill" id="btn-home" onclick="backToHub()">HOME</button>
-                    <button type="button" class="psp-pill" id="sel">SELECT</button>
-                    <button type="button" class="psp-pill" id="st">START</button>
+                <div id="main-row">
+                    <div id="joystick">
+                        <div id="joystick-knob"></div>
+                    </div>
+                    <div id="act">
+                        <button id="btn-b">B</button>
+                        <button id="btn-a">A</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -675,35 +610,27 @@
             cx.putImageData(img, 0, 0);
         }
 
-        const BTN_MAP = {
-            'd-u': jsnes.Controller.BUTTON_UP,
-            'd-d': jsnes.Controller.BUTTON_DOWN,
-            'd-l': jsnes.Controller.BUTTON_LEFT,
-            'd-r': jsnes.Controller.BUTTON_RIGHT,
-            'btn-cross': jsnes.Controller.BUTTON_A,
-            'btn-circle': jsnes.Controller.BUTTON_A,
-            'btn-square': jsnes.Controller.BUTTON_B,
-            'btn-triangle': jsnes.Controller.BUTTON_B,
-            'btn-l': jsnes.Controller.BUTTON_B,
-            'btn-r': jsnes.Controller.BUTTON_A,
-            'st': jsnes.Controller.BUTTON_START,
-            'sel': jsnes.Controller.BUTTON_SELECT
+        const BTN = {
+            'btn-a': jsnes.Controller.BUTTON_A,
+            'btn-b': jsnes.Controller.BUTTON_B,
+            st: jsnes.Controller.BUTTON_START,
+            sel: jsnes.Controller.BUTTON_SELECT
         };
 
-        Object.keys(BTN_MAP).forEach(id => {
+        Object.keys(BTN).forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             const press = e => {
                 if (e.cancelable) e.preventDefault();
                 initAudio();
                 el.classList.add('touching');
-                if (navigator.vibrate) navigator.vibrate(10);
-                if (nes) nes.buttonDown(1, BTN_MAP[id]);
+                if (navigator.vibrate) navigator.vibrate(12);
+                if (nes) nes.buttonDown(1, BTN[id]);
             };
             const release = e => {
                 if (e.cancelable) e.preventDefault();
                 el.classList.remove('touching');
-                if (nes) nes.buttonUp(1, BTN_MAP[id]);
+                if (nes) nes.buttonUp(1, BTN[id]);
             };
             el.addEventListener('pointerdown', press, { passive: false });
             el.addEventListener('pointerup', release, { passive: false });
@@ -717,28 +644,28 @@
         const stick = document.getElementById('joystick');
         const knob = document.getElementById('joystick-knob');
         let stickActive = false;
-        const stickDirState = { u: false, d: false, l: false, r: false };
-        const STICK_KEY = {
+        const dirState = { u: false, d: false, l: false, r: false };
+        const DIR_KEY = {
             u: jsnes.Controller.BUTTON_UP,
             d: jsnes.Controller.BUTTON_DOWN,
             l: jsnes.Controller.BUTTON_LEFT,
             r: jsnes.Controller.BUTTON_RIGHT
         };
 
-        function setStickDir(dir, pressed) {
-            if (stickDirState[dir] === pressed) return;
-            stickDirState[dir] = pressed;
+        function setDir(dir, pressed) {
+            if (dirState[dir] === pressed) return;
+            dirState[dir] = pressed;
             if (!nes) return;
-            if (pressed) nes.buttonDown(1, STICK_KEY[dir]);
-            else nes.buttonUp(1, STICK_KEY[dir]);
+            if (pressed) nes.buttonDown(1, DIR_KEY[dir]);
+            else nes.buttonUp(1, DIR_KEY[dir]);
         }
 
         function resetStick() {
             knob.style.transform = 'translate(0px, 0px)';
-            setStickDir('u', false);
-            setStickDir('d', false);
-            setStickDir('l', false);
-            setStickDir('r', false);
+            setDir('u', false);
+            setDir('d', false);
+            setDir('l', false);
+            setDir('r', false);
         }
 
         function updateStick(clientX, clientY) {
@@ -756,17 +683,17 @@
             knob.style.transform = `translate(${dx}px, ${dy}px)`;
             const deadzone = maxRadius * 0.22;
             if (dist < deadzone) {
-                setStickDir('u', false);
-                setStickDir('d', false);
-                setStickDir('l', false);
-                setStickDir('r', false);
+                setDir('u', false);
+                setDir('d', false);
+                setDir('l', false);
+                setDir('r', false);
                 return;
             }
             const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-            setStickDir('u', angle < -22.5 && angle > -157.5);
-            setStickDir('d', angle > 22.5 && angle < 157.5);
-            setStickDir('r', angle > -67.5 && angle < 67.5);
-            setStickDir('l', angle > 112.5 || angle < -112.5);
+            setDir('u', angle < -22.5 && angle > -157.5);
+            setDir('d', angle > 22.5 && angle < 157.5);
+            setDir('r', angle > -67.5 && angle < 67.5);
+            setDir('l', angle > 112.5 || angle < -112.5);
         }
 
         stick.addEventListener('pointerdown', e => {
