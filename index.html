@@ -359,34 +359,49 @@
 
         @media (orientation: landscape) {
             #game-view {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
                 flex-direction: row;
-                align-items: stretch;
+                align-items: center;
+                justify-content: space-between;
+                background: #000;
+                padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
             }
 
             .game-top-nav {
                 position: absolute;
-                top: env(safe-area-inset-top);
-                left: env(safe-area-inset-left);
-                right: env(safe-area-inset-right);
-                height: 34px;
-                background: rgba(16, 14, 24, .82);
+                top: 8px;
+                left: 12px;
+                right: 12px;
+                height: 32px;
+                background: transparent;
                 border-bottom: none;
-                z-index: 30;
+                z-index: 50;
+                pointer-events: none;
+            }
+            .game-top-nav .back-btn {
+                pointer-events: auto;
             }
 
             #cabinet {
-                flex: 1;
-                width: auto;
+                position: absolute;
+                inset: 0;
+                width: 100%;
                 height: 100%;
                 padding: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background: #000;
+                z-index: 1;
             }
             #bezel {
                 height: 100%;
-                width: 100%;
+                width: auto;
+                aspect-ratio: 256 / 240;
+                max-width: 100%;
                 border-radius: 0;
                 padding: 0;
                 background: #000;
@@ -399,59 +414,77 @@
             .rivet { display: none; }
             #screen-wrap {
                 height: 100%;
-                width: auto;
-                max-width: 100%;
-                aspect-ratio: 256 / 240;
+                width: 100%;
                 border-radius: 0;
                 border: none;
             }
 
             #pad {
-                position: static;
-                width: auto;
-                flex: none;
-                padding: 0 14px;
-                background: #100e18;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 24px;
-                min-width: 160px;
-                max-width: 200px;
-                border-left: 1px solid #241f34;
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                z-index: 20;
+                pointer-events: none;
+                padding: 0;
             }
 
             #top-ctrl {
-                position: static;
-                transform: none;
-                flex-direction: column;
-                gap: 12px;
+                position: absolute;
+                bottom: 12px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: row;
+                gap: 16px;
+                pointer-events: auto;
             }
             #top-ctrl button {
-                width: 100%;
-                height: 32px;
-                font-size: 11px;
+                width: 72px;
+                height: 26px;
+                font-size: 10px;
+                background: rgba(20, 18, 30, .85);
             }
 
             #main-row {
-                position: static;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
                 padding: 0;
+                display: block;
             }
+
             #joystick {
-                width: 120px;
-                height: 120px;
+                position: absolute;
+                left: clamp(16px, 4vw, 36px);
+                bottom: clamp(16px, 4vh, 32px);
+                width: clamp(120px, 20vw, 150px);
+                height: clamp(120px, 20vw, 150px);
+                pointer-events: auto;
+                background: rgba(16, 14, 24, .7);
             }
+
             #act {
-                width: 140px;
-                height: 140px;
+                position: absolute;
+                right: clamp(16px, 4vw, 36px);
+                bottom: clamp(16px, 4vh, 32px);
+                width: clamp(130px, 22vw, 160px);
+                height: clamp(130px, 22vw, 160px);
+                pointer-events: auto;
             }
-            #btn-b, #btn-a {
-                width: 72px;
-                height: 72px;
-                font-size: 24px;
+            #btn-b {
+                width: clamp(56px, 9vw, 68px);
+                height: clamp(56px, 9vw, 68px);
+                font-size: 20px;
+            }
+            #btn-a {
+                width: clamp(56px, 9vw, 68px);
+                height: clamp(56px, 9vw, 68px);
+                font-size: 20px;
             }
         }
     </style>
