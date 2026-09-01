@@ -41,7 +41,6 @@
             border-right: 1px solid #1e1a2b;
         }
 
-        /* ===== HUB ===== */
         #hub-view {
             width: 100%;
             height: 100%;
@@ -149,7 +148,6 @@
             pointer-events: none;
         }
 
-        /* ===== GAME VIEW (portrait default) ===== */
         #game-view {
             width: 100%;
             height: 100%;
@@ -320,7 +318,6 @@
             pointer-events: none;
             transition: transform .04s linear;
         }
-        /* A/B cluster: enlarged, staggered SNES-style so both thumbs reach naturally */
         #act {
             position: relative;
             width: clamp(118px, 32vw, 148px);
@@ -360,9 +357,8 @@
             top: 0;
         }
 
-        /* ===== LANDSCAPE: screen fills the frame, pad overlays it ===== */
         @media (orientation: landscape) {
-            #game-view { flex-direction: column; }
+            #game-view { flex-direction: row; }
 
             .game-top-nav {
                 position: absolute;
@@ -474,7 +470,7 @@
                     <div class="cart-label">
                         <div class="cart-name">Super Mario Bros</div>
                     </div>
-                    <div class="cart-meta">Nintendo &middot; 1985</div>
+                    <div class="cart-meta">Nintendo · 1985</div>
                 </button>
                 <button type="button" class="cart" onclick="playGame('kage', 'The Legend of Kage (1986)')">
                     <div class="cart-window">
@@ -483,7 +479,7 @@
                     <div class="cart-label">
                         <div class="cart-name">The Legend of Kage</div>
                     </div>
-                    <div class="cart-meta">Taito &middot; 1986</div>
+                    <div class="cart-meta">Taito · 1986</div>
                 </button>
             </div>
         </div>
