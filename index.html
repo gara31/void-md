@@ -572,6 +572,17 @@
         }
 
         function backToHub() {
+            try {
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                }
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen().catch(() => {});
+                }
+            } catch (e) {}
+
             if (animId) cancelAnimationFrame(animId);
             nes = null;
             document.getElementById('game-view').style.display = 'none';
