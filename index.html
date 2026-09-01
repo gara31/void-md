@@ -544,7 +544,8 @@
                     for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000 | fb[i];
                     cx.putImageData(img, 0, 0);
                 },
-                onAudioSample: onAudioSample
+                onAudioSample: onAudioSample,
+                sampleRate: actualSampleRate
             });
 
             const xhr = new XMLHttpRequest();
