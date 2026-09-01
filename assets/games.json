@@ -1,5 +1,15 @@
 [
   {
+    "id": "super_mario_bros",
+    "title": "Super Mario Bros",
+    "file": "super_mario_bros.nes"
+  },
+  {
+    "id": "kage",
+    "title": "The Legend of Kage",
+    "file": "kage.nes"
+  },
+  {
     "id": "tloz_perilsofdarkness_v1_7",
     "title": "TLoZ-PerilsofDarkness v1.7",
     "file": "tloz_perilsofdarkness_v1_7.nes"
@@ -1158,11 +1168,6 @@
     "id": "super_mario_all_stars_nes",
     "title": "Super Mario All-Stars NES",
     "file": "super_mario_all_stars_nes.nes"
-  },
-  {
-    "id": "super_mario_bros",
-    "title": "Super Mario Bros",
-    "file": "super_mario_bros.nes"
   },
   {
     "id": "super_mario_bros_2",
