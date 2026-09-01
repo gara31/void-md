@@ -161,11 +161,10 @@
             -webkit-user-select: none;
         }
         .game-top-nav {
-            height: 40px;
+            height: 38px;
             background: #100e18;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             padding: 0 12px;
             border-bottom: 1px solid #241f34;
             flex-shrink: 0;
@@ -176,19 +175,13 @@
             color: #fff;
             font-size: 11px;
             font-weight: 700;
-            padding: 5px 11px;
+            padding: 5px 12px;
             border-radius: 6px;
             cursor: pointer;
         }
-        .current-game-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: #a09cb5;
-            letter-spacing: .2px;
-        }
         #cabinet {
             width: 100%;
-            padding: 8px 12px 4px;
+            padding: 8px 12px 0;
             flex-shrink: 0;
         }
         #bezel {
@@ -213,7 +206,7 @@
         #screen-wrap {
             width: 100%;
             aspect-ratio: 256 / 240;
-            max-height: 44vh;
+            max-height: 48vh;
             background: #000;
             display: flex;
             justify-content: center;
@@ -235,20 +228,21 @@
         #pad {
             width: 100%;
             flex: 1;
-            padding: 8px 16px 14px;
+            padding: 8px 14px 16px;
             background: #100e18;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: space-between;
             position: relative;
         }
-        #top-ctrl {
+        .side-col {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
             align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
         }
-        #top-ctrl button {
+        .sub-btn {
             width: 68px;
             height: 24px;
             background: #1c1830;
@@ -265,21 +259,15 @@
             justify-content: center;
             transition: transform .05s, background .05s;
         }
-        #top-ctrl button:active, #top-ctrl button.touching {
+        .sub-btn:active, .sub-btn.touching {
             transform: translateY(2px);
             background: #2a2440;
             color: #fff;
         }
-        #main-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 0 4px;
-        }
+
         #joystick {
-            width: clamp(90px, 26vw, 110px);
-            height: clamp(90px, 26vw, 110px);
+            width: clamp(110px, 32vw, 138px);
+            height: clamp(110px, 32vw, 138px);
             border-radius: 50%;
             background: #171325;
             border: 2px solid #322c48;
@@ -303,8 +291,8 @@
         }
         #act {
             position: relative;
-            width: clamp(100px, 28vw, 120px);
-            height: clamp(90px, 26vw, 110px);
+            width: clamp(124px, 34vw, 150px);
+            height: clamp(110px, 30vw, 134px);
             flex-shrink: 0;
         }
         #act button {
@@ -326,16 +314,16 @@
             box-shadow: 0 1px #8a6200;
         }
         #btn-b {
-            width: clamp(48px, 13vw, 56px);
-            height: clamp(48px, 13vw, 56px);
-            font-size: 18px;
+            width: clamp(58px, 16vw, 68px);
+            height: clamp(58px, 16vw, 68px);
+            font-size: 21px;
             left: 0;
             bottom: 0;
         }
         #btn-a {
-            width: clamp(48px, 13vw, 56px);
-            height: clamp(48px, 13vw, 56px);
-            font-size: 18px;
+            width: clamp(58px, 16vw, 68px);
+            height: clamp(58px, 16vw, 68px);
+            font-size: 21px;
             right: 0;
             top: 0;
         }
@@ -402,41 +390,30 @@
                 pointer-events: none;
                 z-index: 20;
             }
-            #top-ctrl {
-                position: absolute;
-                bottom: 8px;
-                left: 50%;
-                transform: translateX(-50%);
-                gap: 16px;
-                pointer-events: auto;
-            }
-            #main-row {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                padding: 0;
-            }
-            #joystick {
+            .side-col.left-col {
                 position: absolute;
                 left: clamp(16px, 4vw, 40px);
                 bottom: clamp(16px, 4vh, 32px);
-                width: 100px;
-                height: 100px;
                 pointer-events: auto;
             }
-            #act {
+            .side-col.right-col {
                 position: absolute;
                 right: clamp(16px, 4vw, 40px);
                 bottom: clamp(16px, 4vh, 32px);
-                width: 110px;
-                height: 90px;
                 pointer-events: auto;
             }
+            #joystick {
+                width: 110px;
+                height: 110px;
+            }
+            #act {
+                width: 124px;
+                height: 110px;
+            }
             #btn-b, #btn-a {
-                width: 52px;
-                height: 52px;
-                font-size: 19px;
+                width: 56px;
+                height: 56px;
+                font-size: 20px;
             }
         }
     </style>
@@ -452,7 +429,7 @@
                 <div class="marquee-sub">Pilih cartridge, tekan START</div>
             </div>
             <div class="cart-grid">
-                <button type="button" class="cart" onclick="playGame('mario', 'Super Mario Bros (1985)')">
+                <button type="button" class="cart" onclick="playGame('mario')">
                     <div class="cart-window">
                         <img src="assets/covers/mario.jpg" alt="Mario">
                     </div>
@@ -461,7 +438,7 @@
                     </div>
                     <div class="cart-meta">Nintendo · 1985</div>
                 </button>
-                <button type="button" class="cart" onclick="playGame('kage', 'The Legend of Kage (1986)')">
+                <button type="button" class="cart" onclick="playGame('kage')">
                     <div class="cart-window">
                         <img src="assets/covers/kage.jpg" alt="Kage">
                     </div>
@@ -476,8 +453,6 @@
         <div id="game-view">
             <div class="game-top-nav">
                 <button type="button" class="back-btn" onclick="backToHub()">KEMBALI</button>
-                <div class="current-game-title" id="game-title">Game</div>
-                <div style="width:58px"></div>
             </div>
             <div id="cabinet">
                 <div id="bezel">
@@ -491,17 +466,17 @@
                 </div>
             </div>
             <div id="pad">
-                <div id="top-ctrl">
-                    <button id="sel">SELECT</button>
-                    <button id="st">START</button>
-                </div>
-                <div id="main-row">
+                <div class="side-col left-col">
+                    <button type="button" class="sub-btn" id="sel">SELECT</button>
                     <div id="joystick">
                         <div id="joystick-knob"></div>
                     </div>
+                </div>
+                <div class="side-col right-col">
+                    <button type="button" class="sub-btn" id="st">START</button>
                     <div id="act">
-                        <button id="btn-b">B</button>
-                        <button id="btn-a">A</button>
+                        <button type="button" id="btn-b">B</button>
+                        <button type="button" id="btn-a">A</button>
                     </div>
                 </div>
             </div>
@@ -546,11 +521,10 @@
             if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         }
 
-        function playGame(romName, titleText) {
+        function playGame(romName) {
             initAudio();
             document.getElementById('hub-view').style.display = 'none';
             document.getElementById('game-view').style.display = 'flex';
-            document.getElementById('game-title').textContent = titleText;
 
             if (animId) cancelAnimationFrame(animId);
 
