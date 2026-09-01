@@ -504,6 +504,7 @@
             initAudio();
             document.body.classList.add('in-game');
             document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('game-grid').innerHTML = '';
             document.getElementById('game-view').style.display = 'flex';
             document.getElementById('game-view').classList.add('active');
 
@@ -541,17 +542,8 @@
                     const bytes = new Uint8Array(xhr.response);
                     for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
                     nes.loadROM(binary);
-
-                    let lastTime = performance.now();
-                    const frameInterval = 1000 / 60;
-
-                    function loop(now) {
-                        if (!nes) return;
-                        const elapsed = now - lastTime;
-                        if (elapsed >= frameInterval) {
-                            lastTime = now - (elapsed % frameInterval);
-                            nes.frame();
-                        }
+                    function loop() {
+                        if (nes) nes.frame();
                         animId = requestAnimationFrame(loop);
                     }
                     animId = requestAnimationFrame(loop);
@@ -578,6 +570,7 @@
             nes = null;
             document.getElementById('game-view').style.display = 'none';
             document.getElementById('hub-view').style.display = 'flex';
+            renderGameGrid(ALL_GAMES);
             for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000;
             cx.putImageData(img, 0, 0);
         }
