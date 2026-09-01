@@ -493,6 +493,7 @@
                         audioCtx = new AC({ latencyHint: 0 });
                         actualSampleRate = audioCtx.sampleRate || 44100;
                         scriptNode = audioCtx.createScriptProcessor(512, 0, 2);
+                        let lastL = 0, lastR = 0;
                         scriptNode.onaudioprocess = e => {
                             const outL = e.outputBuffer.getChannelData(0);
                             const outR = e.outputBuffer.getChannelData(1);
@@ -500,15 +501,19 @@
 
                             if (sampleCount < len) {
                                 for (let i = 0; i < len; i++) {
-                                    outL[i] = 0;
-                                    outR[i] = 0;
+                                    lastL *= 0.95;
+                                    lastR *= 0.95;
+                                    outL[i] = lastL;
+                                    outR[i] = lastR;
                                 }
                                 return;
                             }
 
                             for (let i = 0; i < len; i++) {
-                                outL[i] = ringL[readPtr];
-                                outR[i] = ringR[readPtr];
+                                lastL = ringL[readPtr];
+                                lastR = ringR[readPtr];
+                                outL[i] = lastL;
+                                outR[i] = lastR;
                                 readPtr = (readPtr + 1) % BUFFER_CAP;
                             }
                             sampleCount -= len;
