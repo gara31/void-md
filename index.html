@@ -447,43 +447,66 @@
         </div>
     </div>
 
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <script src="assets/js/nostalgist.umd.js"></script>
+    <script src="assets/js/jsnes.min.js"></script>
     <script>
-        let nostalgistInstance = null;
+        const cv = document.getElementById('nes'),
+            cx = cv.getContext('2d', { alpha: false, desynchronized: true }),
+            img = cx.createImageData(256, 240),
+            buf32 = new Uint32Array(img.data.buffer);
+        const SAMPLE_RATE = 44100, BUFFER_SIZE = 1024, RING_SIZE = 32768;
+        const ringL = new Float32Array(RING_SIZE), ringR = new Float32Array(RING_SIZE);
+        let writePtr = 0, readPtr = 0, audioCtx = null, scriptNode = null;
+        let nes = null, animId = null;
 
-        const KEY_MAP = {
-            "btn-a": "a",
-            "btn-b": "b",
-            "st": "start",
-            "sel": "select"
-        };
-
-        const DIR_MAP = {
-            "u": "up",
-            "d": "down",
-            "l": "left",
-            "r": "right"
-        };
-
-        function sendNostalgistInput(btn, pressed) {
-            if (!nostalgistInstance) return;
-            try {
-                if (pressed) {
-                    nostalgistInstance.press(btn);
-                } else {
-                    nostalgistInstance.release(btn);
+        function initAudio() {
+            if (!audioCtx) {
+                try {
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    if (AC) {
+                        audioCtx = new AC();
+                        scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 0, 2);
+                        scriptNode.onaudioprocess = e => {
+                            const outL = e.outputBuffer.getChannelData(0), outR = e.outputBuffer.getChannelData(1);
+                            const count = (writePtr - readPtr + RING_SIZE) % RING_SIZE;
+                            if (count < BUFFER_SIZE) {
+                                for (let i = 0; i < outL.length; i++) { outL[i] = 0; outR[i] = 0; }
+                                return;
+                            }
+                            for (let i = 0; i < outL.length; i++) {
+                                outL[i] = ringL[readPtr];
+                                outR[i] = ringR[readPtr];
+                                readPtr = (readPtr + 1) % RING_SIZE;
+                            }
+                        };
+                        scriptNode.connect(audioCtx.destination);
+                    }
+                } catch (e) {}
+            }
+            if (audioCtx) {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
                 }
-            } catch(e) {}
+            }
         }
 
-        async function playGame(romName) {
-            document.body.classList.add("in-game");
-            document.getElementById("hub-view").style.display = "none";
-            document.getElementById("game-grid").innerHTML = "";
-            document.getElementById("game-view").style.display = "flex";
-            document.getElementById("game-view").classList.add("active");
+        function onAudioSample(l, r) {
+            const count = (writePtr - readPtr + RING_SIZE) % RING_SIZE;
+            if (count > 4096) {
+                readPtr = (readPtr + (count - 1024)) % RING_SIZE;
+            }
+            ringL[writePtr] = l;
+            ringR[writePtr] = r;
+            writePtr = (writePtr + 1) % RING_SIZE;
+        }
+
+        function playGame(romName) {
+            initAudio();
+            document.body.classList.add('in-game');
+            document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('game-grid').innerHTML = '';
+            document.getElementById('game-view').style.display = 'flex';
+            document.getElementById('game-view').classList.add('active');
 
             try {
                 if (document.documentElement.requestFullscreen) {
@@ -492,34 +515,46 @@
                     document.documentElement.webkitRequestFullscreen().catch(() => {});
                 }
                 if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock("landscape").catch(() => {});
+                    screen.orientation.lock('landscape').catch(() => {});
                 }
             } catch (e) {}
 
-            if (nostalgistInstance) {
-                try { await nostalgistInstance.exit(); } catch(e) {}
-                nostalgistInstance = null;
-            }
+            if (animId) cancelAnimationFrame(animId);
 
-            try {
-                nostalgistInstance = await Nostalgist.nes({
-                    rom: "assets/games/" + romName + ".nes",
-                    element: document.getElementById("nes"),
-                    resolveCoreJs(core) {
-                        return "https://unpkg.com/nostalgist/dist/cores/" + core + "_libretro.js";
-                    },
-                    resolveCoreWasm(core) {
-                        return "https://unpkg.com/nostalgist/dist/cores/" + core + "_libretro.wasm";
+            nes = new jsnes.NES({
+                onFrame: fb => {
+                    for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000 | fb[i];
+                    cx.putImageData(img, 0, 0);
+                },
+                onAudioSample: (l, r) => {
+                    ringL[writePtr] = l;
+                    ringR[writePtr] = r;
+                    writePtr = (writePtr + 1) % RING_SIZE;
+                }
+            });
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'assets/games/' + romName + '.nes', true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (xhr.status === 200 || xhr.status === 0) {
+                    let binary = '';
+                    const bytes = new Uint8Array(xhr.response);
+                    for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+                    nes.loadROM(binary);
+                    function loop() {
+                        if (nes) nes.frame();
+                        animId = requestAnimationFrame(loop);
                     }
-                });
-            } catch(e) {
-                console.error("WASM launch error:", e);
-            }
+                    animId = requestAnimationFrame(loop);
+                }
+            };
+            xhr.send();
         }
 
-        async function backToHub() {
-            document.body.classList.remove("in-game");
-            document.getElementById("game-view").classList.remove("active");
+        function backToHub() {
+            document.body.classList.remove('in-game');
+            document.getElementById('game-view').classList.remove('active');
             try {
                 if (screen.orientation && screen.orientation.unlock) {
                     screen.orientation.unlock();
@@ -531,56 +566,71 @@
                 }
             } catch (e) {}
 
-            if (nostalgistInstance) {
-                try { await nostalgistInstance.exit(); } catch(e) {}
-                nostalgistInstance = null;
-            }
-
-            document.getElementById("game-view").style.display = "none";
-            document.getElementById("hub-view").style.display = "flex";
+            if (animId) cancelAnimationFrame(animId);
+            nes = null;
+            document.getElementById('game-view').style.display = 'none';
+            document.getElementById('hub-view').style.display = 'flex';
             renderGameGrid(ALL_GAMES);
+            for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000;
+            cx.putImageData(img, 0, 0);
         }
 
-        const BTN_ELEMENTS = ["btn-a", "btn-b", "st", "sel"];
-        BTN_ELEMENTS.forEach(id => {
+        const BTN = {
+            'btn-a': jsnes.Controller.BUTTON_A,
+            'btn-b': jsnes.Controller.BUTTON_B,
+            st: jsnes.Controller.BUTTON_START,
+            sel: jsnes.Controller.BUTTON_SELECT
+        };
+
+        Object.keys(BTN).forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             const press = e => {
                 if (e.cancelable) e.preventDefault();
-                el.classList.add("touching");
-                sendNostalgistInput(KEY_MAP[id], true);
+                initAudio();
+                el.classList.add('touching');
+                if (navigator.vibrate) navigator.vibrate(10);
+                if (nes) nes.buttonDown(1, BTN[id]);
             };
             const release = e => {
                 if (e.cancelable) e.preventDefault();
-                el.classList.remove("touching");
-                sendNostalgistInput(KEY_MAP[id], false);
+                el.classList.remove('touching');
+                if (nes) nes.buttonUp(1, BTN[id]);
             };
-            el.addEventListener("pointerdown", press, { passive: false });
-            el.addEventListener("pointerup", release, { passive: false });
-            el.addEventListener("pointercancel", release, { passive: false });
-            el.addEventListener("pointerleave", release, { passive: false });
-            el.addEventListener("touchstart", press, { passive: false });
-            el.addEventListener("touchend", release, { passive: false });
-            el.addEventListener("touchcancel", release, { passive: false });
+            el.addEventListener('pointerdown', press, { passive: false });
+            el.addEventListener('pointerup', release, { passive: false });
+            el.addEventListener('pointercancel', release, { passive: false });
+            el.addEventListener('pointerleave', release, { passive: false });
+            el.addEventListener('touchstart', press, { passive: false });
+            el.addEventListener('touchend', release, { passive: false });
+            el.addEventListener('touchcancel', release, { passive: false });
         });
 
-        const stick = document.getElementById("joystick");
-        const knob = document.getElementById("joystick-knob");
+        const stick = document.getElementById('joystick');
+        const knob = document.getElementById('joystick-knob');
         let stickActive = false;
         const dirState = { u: false, d: false, l: false, r: false };
+        const DIR_KEY = {
+            u: jsnes.Controller.BUTTON_UP,
+            d: jsnes.Controller.BUTTON_DOWN,
+            l: jsnes.Controller.BUTTON_LEFT,
+            r: jsnes.Controller.BUTTON_RIGHT
+        };
 
         function setDir(dir, pressed) {
             if (dirState[dir] === pressed) return;
             dirState[dir] = pressed;
-            sendNostalgistInput(DIR_MAP[dir], pressed);
+            if (!nes) return;
+            if (pressed) nes.buttonDown(1, DIR_KEY[dir]);
+            else nes.buttonUp(1, DIR_KEY[dir]);
         }
 
         function resetStick() {
-            knob.style.transform = "translate(0px, 0px)";
-            setDir("u", false);
-            setDir("d", false);
-            setDir("l", false);
-            setDir("r", false);
+            knob.style.transform = 'translate(0px, 0px)';
+            setDir('u', false);
+            setDir('d', false);
+            setDir('l', false);
+            setDir('r', false);
         }
 
         function updateStick(clientX, clientY) {
@@ -598,28 +648,29 @@
             knob.style.transform = `translate(${dx}px, ${dy}px)`;
             const deadzone = maxRadius * 0.22;
             if (dist < deadzone) {
-                setDir("u", false);
-                setDir("d", false);
-                setDir("l", false);
-                setDir("r", false);
+                setDir('u', false);
+                setDir('d', false);
+                setDir('l', false);
+                setDir('r', false);
                 return;
             }
             const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-            setDir("u", angle < -22.5 && angle > -157.5);
-            setDir("d", angle > 22.5 && angle < 157.5);
-            setDir("r", angle > -67.5 && angle < 67.5);
-            setDir("l", angle > 112.5 || angle < -112.5);
+            setDir('u', angle < -22.5 && angle > -157.5);
+            setDir('d', angle > 22.5 && angle < 157.5);
+            setDir('r', angle > -67.5 && angle < 67.5);
+            setDir('l', angle > 112.5 || angle < -112.5);
         }
 
-        stick.addEventListener("pointerdown", e => {
+        stick.addEventListener('pointerdown', e => {
             e.preventDefault();
+            initAudio();
             stickActive = true;
-            knob.style.transition = "none";
+            knob.style.transition = 'none';
             stick.setPointerCapture(e.pointerId);
             updateStick(e.clientX, e.clientY);
         }, { passive: false });
 
-        stick.addEventListener("pointermove", e => {
+        stick.addEventListener('pointermove', e => {
             if (!stickActive) return;
             e.preventDefault();
             updateStick(e.clientX, e.clientY);
@@ -628,15 +679,14 @@
         const endStick = e => {
             if (!stickActive) return;
             stickActive = false;
-            knob.style.transition = "transform .12s ease-out";
+            knob.style.transition = 'transform .1s ease-out';
             resetStick();
         };
-        stick.addEventListener("pointerup", endStick, { passive: false });
-        stick.addEventListener("pointercancel", endStick, { passive: false });
+        stick.addEventListener('pointerup', endStick, { passive: false });
+        stick.addEventListener('pointercancel', endStick, { passive: false });
 
-        document.addEventListener("contextmenu", e => e.preventDefault());
+        document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
-
     <div id="rotate-overlay">
         <div id="lottie-box"></div>
         <div class="desc">Silakan aktifkan rotasi otomatis dan putar HP kamu ke mode mendatar (Landscape) untuk bermain.</div>
