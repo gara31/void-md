@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>NES Retro Emulator</title>
+    <title>Retro NES Player</title>
     <style>
         * {
             margin: 0;
@@ -15,8 +15,8 @@
             touch-action: none;
         }
         html, body {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             margin: 0;
             padding: 0;
             background: #0a0a0c;
@@ -35,7 +35,6 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             margin: 0 auto;
         }
         #screen-wrap {
@@ -47,6 +46,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
         canvas#nes {
             width: 100%;
@@ -61,7 +61,7 @@
             width: 100%;
             flex: 1;
             padding: clamp(10px, 3vw, 16px);
-            background: url('https://raw.githubusercontent.com/gara31/void-md/main/assets/games/bg_kage.jpg') no-repeat center center;
+            background: url('assets/games/bg_kage.jpg') no-repeat center center;
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -193,7 +193,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/gh/gara31/void-md@main/assets/js/jsnes.min.js"></script>
+    <script src="assets/js/jsnes.min.js"></script>
     <script>
         const cv = document.getElementById('nes'),
             cx = cv.getContext('2d', { alpha: false, desynchronized: true }),
@@ -244,7 +244,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const game = urlParams.get('game') || 'kage';
-        const romUrl = `https://raw.githubusercontent.com/gara31/void-md/main/assets/games/${game}.nes`;
+        const romUrl = `assets/games/${game}.nes`;
 
         fetch(romUrl)
             .then(res => res.arrayBuffer())
@@ -258,6 +258,9 @@
                     requestAnimationFrame(loop);
                 }
                 requestAnimationFrame(loop);
+            })
+            .catch(err => {
+                console.error("Gagal load ROM:", err);
             });
 
         const K = {
