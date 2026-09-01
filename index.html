@@ -527,6 +527,17 @@
             document.getElementById('hub-view').style.display = 'none';
             document.getElementById('game-view').style.display = 'flex';
 
+            try {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen().catch(() => {});
+                }
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => {});
+                }
+            } catch (e) {}
+
             if (animId) cancelAnimationFrame(animId);
 
             nes = new jsnes.NES({
