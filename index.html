@@ -755,6 +755,9 @@
                 if (screen.orientation && screen.orientation.unlock) {
                     screen.orientation.unlock();
                 }
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('portrait').catch(() => {});
+                }
                 if (document.exitFullscreen) {
                     document.exitFullscreen().catch(() => {});
                 } else if (document.webkitExitFullscreen) {
