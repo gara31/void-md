@@ -64,8 +64,15 @@
 
         @media (orientation: landscape) {
             body:not(.in-game) #app {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 100vh !important;
+                height: 100vw !important;
                 max-width: 430px !important;
-                margin: 0 auto !important;
+                transform: translate(-50%, -50%) rotate(-90deg);
+                transform-origin: center center;
+                overflow: hidden;
             }
         }
 
