@@ -40,11 +40,6 @@
     "file": "adventures_of_bayou_billy_the.nes"
   },
   {
-    "id": "among_us_tragedy_of_ryohyukan",
-    "title": "Among Us - Tragedy of Ryohyukan",
-    "file": "among_us_tragedy_of_ryohyukan.nes"
-  },
-  {
     "id": "ankoku_shinwa_the_dark_myth",
     "title": "Ankoku Shinwa - The Dark Myth",
     "file": "ankoku_shinwa_the_dark_myth.nes"
@@ -138,11 +133,6 @@
     "id": "golf",
     "title": "Golf",
     "file": "golf.nes"
-  },
-  {
-    "id": "grave_of_the_fireflies",
-    "title": "Grave of the Fireflies",
-    "file": "grave_of_the_fireflies.nes"
   },
   {
     "id": "heracles_no_eikou_toujin_makyou_den",
@@ -1400,11 +1390,6 @@
     "file": "hoops.nes"
   },
   {
-    "id": "hotman",
-    "title": "Hotman",
-    "file": "hotman.nes"
-  },
-  {
     "id": "hudson_hawk",
     "title": "Hudson Hawk",
     "file": "hudson_hawk.nes"
@@ -1840,11 +1825,6 @@
     "file": "phantom_fighter.nes"
   },
   {
-    "id": "photon",
-    "title": "Photon",
-    "file": "photon.nes"
-  },
-  {
     "id": "pictionary_the_game_of_video_quick_draw",
     "title": "Pictionary - The Game of Video Quick Draw",
     "file": "pictionary_the_game_of_video_quick_draw.nes"
@@ -1878,11 +1858,6 @@
     "id": "princess_tomato_in_the_salad_kingdom",
     "title": "Princess Tomato in the Salad Kingdom",
     "file": "princess_tomato_in_the_salad_kingdom.nes"
-  },
-  {
-    "id": "princesstual_orgy",
-    "title": "Princesstual Orgy",
-    "file": "princesstual_orgy.nes"
   },
   {
     "id": "pro_wrestling",
@@ -2138,11 +2113,6 @@
     "id": "snow_brothers",
     "title": "Snow Brothers",
     "file": "snow_brothers.nes"
-  },
-  {
-    "id": "softballheaven",
-    "title": "SoftballHeaven",
-    "file": "softballheaven.nes"
   },
   {
     "id": "solomon_s_key",
