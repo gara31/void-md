@@ -395,32 +395,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
+            background-color: #98b2c4;
         }
         #bezel {
             width: auto;
             height: 100%;
             aspect-ratio: 256 / 240;
-            background: transparent;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            border-radius: 0;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-            border: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            border: 1.5px solid rgba(255,255,255,0.1);
         }
         #screen-wrap {
             width: 100%;
             height: 100%;
-            background: transparent;
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            border-radius: 0;
+            border-radius: 12px;
         }
         canvas#nes {
             width: 100%;
@@ -430,8 +430,7 @@
             image-rendering: pixelated;
             image-rendering: crisp-edges;
             transform: translateZ(0);
-            border-radius: 0;
-            background: transparent;
+            border-radius: 12px;
         }
 
         #pad {
@@ -597,7 +596,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="playGame('super_mario_bros')">
     <div id="app">
         <div id="hub-view">
             <div class="search-wrap">
