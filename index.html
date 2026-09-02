@@ -317,7 +317,7 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background-color: #e4edf3;
             position: fixed;
             top: 0;
             left: 0;
@@ -339,24 +339,25 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 38px;
+            height: 48px;
             background: transparent;
             border-bottom: none;
             z-index: 50;
-            padding: 6px 18px;
+            padding: 10px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .back-btn {
-            background: #1c1830;
-            border: 1px solid #362f4d;
-            color: #fff;
+            background: #ffffff;
+            border: 1.5px solid var(--color-line);
+            color: var(--ink);
             font-size: 11px;
             font-weight: 800;
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 999px;
             cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
         .top-right-ctrl {
             display: flex;
@@ -366,12 +367,12 @@
         .meta-pill {
             height: 28px;
             padding: 0 14px;
-            background: #181528;
-            border: 1px solid #362f4d;
+            background: #ffffff;
+            border: 1.5px solid var(--color-line);
             border-radius: 14px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, .6);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             cursor: pointer;
-            color: #b0acca;
+            color: var(--ink);
             font-size: 11px;
             font-weight: 800;
             letter-spacing: .6px;
@@ -382,8 +383,7 @@
         }
         .meta-pill:active, .meta-pill.touching {
             transform: translateY(2px);
-            background: #2e284a;
-            color: #fff;
+            background: var(--color-green-soft);
         }
 
         #cabinet {
@@ -400,7 +400,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
+            background-color: #e4edf3;
         }
         #bezel {
             width: 100%;
@@ -410,6 +410,9 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            border-left: 2px solid var(--color-line);
+            border-right: 2px solid var(--color-line);
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
         }
         #screen-wrap {
             width: 100%;
