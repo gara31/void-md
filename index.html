@@ -594,7 +594,7 @@
 
         <div id="game-view">
             <div class="top-action-bar">
-                <button type="button" class="back-btn" onclick="backToHub()">KEMBALI</button>
+                <button type="button" class="back-btn" onclick="promptExitGame()">KEMBALI</button>
                 <div class="top-right-ctrl">
                     <button type="button" class="meta-pill" id="sel">SELECT</button>
                     <button type="button" class="meta-pill" id="st">START</button>
@@ -732,7 +732,23 @@
             xhr.send();
         }
 
+        function promptExitGame() {
+            const modal = document.getElementById('exit-modal');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeExitModal() {
+            const modal = document.getElementById('exit-modal');
+            if (modal) modal.classList.remove('show');
+        }
+
+        function confirmExitGame() {
+            closeExitModal();
+            backToHub();
+        }
+
         function backToHub() {
+            closeExitModal();
             document.body.classList.remove('in-game');
             document.getElementById('game-view').classList.remove('active');
             try {
