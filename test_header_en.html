@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-page: #f4f6f8;
-            --color-paper: #f4f6f8;
+            --color-page: #98b2c4;
+            --color-paper: #e4edf3;
             --color-card: #ffffff;
             --color-muted: #5e6c76;
             --color-green: #e4edf3;
@@ -34,7 +34,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background-color: var(--color-page);
+            background-color: var(--color-green-mid);
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--ink);
             overflow: hidden;
@@ -48,7 +48,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background-color: var(--color-page);
+            background-color: var(--color-green-mid);
             position: relative;
         }
 
@@ -59,8 +59,59 @@
             flex-direction: column;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            background-color: var(--color-page);
-            padding: 16px 14px 40px;
+            background-color: var(--color-green-mid);
+        }
+
+        .kanara-header {
+            background-color: var(--color-green-mid);
+            padding: 24px 16px 36px;
+        }
+        .kanara-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fafad2;
+            border: 1.5px solid var(--color-line);
+            border-radius: 999px;
+            padding: 5px 14px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .brand-badge span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+        }
+        .kanara-header-sub {
+            margin-top: 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            opacity: 0.85;
+        }
+        .kanara-header-title {
+            margin-top: 2px;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+        }
+
+        .kanara-main {
+            margin-top: -24px;
+            flex: 1;
+            background-color: #f4f6f8;
+            border-radius: 32px 32px 0 0;
+            padding: 20px 14px 40px;
+            display: flex;
+            flex-direction: column;
             gap: 14px;
         }
 
