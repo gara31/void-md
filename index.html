@@ -508,6 +508,13 @@
                 </div>
             </div>
             <div id="pad">
+                <div id="dpad">
+                    <button type="button" class="dpad-btn" id="dpad-u">▲</button>
+                    <button type="button" class="dpad-btn" id="dpad-d">▼</button>
+                    <button type="button" class="dpad-btn" id="dpad-l">◀</button>
+                    <button type="button" class="dpad-btn" id="dpad-r">▶</button>
+                    <div id="dpad-center"></div>
+                </div>
                 <div id="joystick">
                     <div id="joystick-knob"></div>
                 </div>
@@ -652,7 +659,11 @@
             'btn-a': jsnes.Controller.BUTTON_A,
             'btn-b': jsnes.Controller.BUTTON_B,
             st: jsnes.Controller.BUTTON_START,
-            sel: jsnes.Controller.BUTTON_SELECT
+            sel: jsnes.Controller.BUTTON_SELECT,
+            'dpad-u': jsnes.Controller.BUTTON_UP,
+            'dpad-d': jsnes.Controller.BUTTON_DOWN,
+            'dpad-l': jsnes.Controller.BUTTON_LEFT,
+            'dpad-r': jsnes.Controller.BUTTON_RIGHT
         };
 
         Object.keys(BTN).forEach(id => {
