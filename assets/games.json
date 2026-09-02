@@ -185,11 +185,6 @@
     "file": "kujaku_ou_peacock_king.nes"
   },
   {
-    "id": "kujaku_ou_ii_peacock_king_ii",
-    "title": "Kujaku Ou II - Peacock King II",
-    "file": "kujaku_ou_ii_peacock_king_ii.nes"
-  },
-  {
     "id": "lee_carvallo_s_putting_challenge",
     "title": "Lee Carvallo's Putting Challenge",
     "file": "lee_carvallo_s_putting_challenge.nes"
@@ -275,11 +270,6 @@
     "file": "rockman_2_dr_wily_no_nazo.nes"
   },
   {
-    "id": "rockman_l",
-    "title": "Rockman L",
-    "file": "rockman_l.nes"
-  },
-  {
     "id": "romancia",
     "title": "Romancia",
     "file": "romancia.nes"
@@ -328,11 +318,6 @@
     "id": "star_soldier",
     "title": "Star Soldier",
     "file": "star_soldier.nes"
-  },
-  {
-    "id": "sted_iseki_wakusei_no_yabou",
-    "title": "Sted - Iseki Wakusei no Yabou",
-    "file": "sted_iseki_wakusei_no_yabou.nes"
   },
   {
     "id": "super_chinese_3",
@@ -985,11 +970,6 @@
     "file": "disney_s_chip_n_dale_rescue_rangers.nes"
   },
   {
-    "id": "disney_s_chip_n_dale_rescue_rangers_2",
-    "title": "Disney's Chip 'n Dale Rescue Rangers 2",
-    "file": "disney_s_chip_n_dale_rescue_rangers_2.nes"
-  },
-  {
     "id": "disney_s_darkwing_duck",
     "title": "Disney's Darkwing Duck",
     "file": "disney_s_darkwing_duck.nes"
@@ -998,11 +978,6 @@
     "id": "disney_s_ducktales",
     "title": "Disney's DuckTales",
     "file": "disney_s_ducktales.nes"
-  },
-  {
-    "id": "disney_s_ducktales_2",
-    "title": "Disney's DuckTales 2",
-    "file": "disney_s_ducktales_2.nes"
   },
   {
     "id": "disney_s_talespin",
@@ -1310,11 +1285,6 @@
     "file": "great_waldo_search_the.nes"
   },
   {
-    "id": "great_maze_the_master_of_the_maze",
-    "title": "Great Maze, The - Master of the Maze",
-    "file": "great_maze_the_master_of_the_maze.nes"
-  },
-  {
     "id": "greg_norman_s_golf_power",
     "title": "Greg Norman's Golf Power",
     "file": "greg_norman_s_golf_power.nes"
@@ -1393,11 +1363,6 @@
     "id": "hudson_hawk",
     "title": "Hudson Hawk",
     "file": "hudson_hawk.nes"
-  },
-  {
-    "id": "hudson_s_adventure_island",
-    "title": "Hudson's Adventure Island",
-    "file": "hudson_s_adventure_island.nes"
   },
   {
     "id": "ikari_iii_the_rescue",
@@ -1533,11 +1498,6 @@
     "id": "knight_rider",
     "title": "Knight Rider",
     "file": "knight_rider.nes"
-  },
-  {
-    "id": "knights_of_the_zodiac_legend_of_the_gold",
-    "title": "Knights of the Zodiac - Legend of the Gold",
-    "file": "knights_of_the_zodiac_legend_of_the_gold.nes"
   },
   {
     "id": "knights_of_the_zodiac_the_golden_legend_final_chapter",
