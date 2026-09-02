@@ -9,17 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-page: #f4f6f8;
-            --color-paper: #f4f6f8;
-            --color-card: #ffffff;
-            --color-muted: #5e6c76;
-            --color-green: #e4edf3;
-            --color-green-mid: #98b2c4;
-            --color-green-soft: #e2ecf2;
-            --color-yellow: #fafad2;
-            --color-forest: #204961;
-            --color-line: #d8e2e8;
-            --ink: #1f1f1f;
+            --color-page: #100e18;
+            --color-paper: #171325;
+            --color-card: #1f1b30;
+            --color-muted: #8e8a9f;
+            --color-forest: #ffb703;
+            --color-line: #2c2740;
+            --ink: #f0f0f5;
         }
         * {
             margin: 0;
@@ -34,7 +30,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f8;
+            background-color: #12101a;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--ink);
             overflow: hidden;
@@ -48,7 +44,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background-color: #f4f6f8;
+            background-color: #12101a;
             position: relative;
         }
 
@@ -59,7 +55,7 @@
             flex-direction: column;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            background-color: #f4f6f8;
+            background-color: #12101a;
             padding: 16px 14px 40px;
             gap: 14px;
         }
@@ -70,21 +66,21 @@
         }
         .search-input {
             width: 100%;
-            height: 46px;
-            background: #ffffff;
+            height: 44px;
+            background: #1c182c;
             border: 1.5px solid var(--color-line);
-            border-radius: 18px;
-            padding: 0 16px 0 42px;
-            color: var(--ink);
+            border-radius: 16px;
+            padding: 0 14px 0 40px;
+            color: #ffffff;
             font-family: inherit;
             font-size: 13px;
             font-weight: 600;
             outline: none;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
             transition: border-color 0.2s;
         }
         .search-input:focus {
-            border-color: var(--color-forest);
+            border-color: #ffb703;
         }
         .search-icon {
             position: absolute;
@@ -105,7 +101,7 @@
             width: 100%;
             min-width: 0;
             position: relative;
-            background: #ffffff;
+            background: #1a1628;
             border: 1.5px solid var(--color-line);
             border-radius: 20px;
             padding: 10px;
@@ -116,20 +112,20 @@
             user-select: none;
             -webkit-user-select: none;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             transition: transform 0.15s ease, background 0.15s ease;
         }
         .cart:active {
             transform: scale(0.97);
-            background: var(--color-green-soft);
+            background: #252038;
         }
         .cart-window {
             width: 100%;
             aspect-ratio: 3/4;
             border-radius: 14px;
             overflow: hidden;
-            background: var(--color-green-soft);
-            border: 1.5px solid var(--color-line);
+            background: #0f0d18;
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
         }
         .cart-window img {
             width: 100%;
@@ -148,7 +144,7 @@
         .cart-name {
             font-size: 12px;
             font-weight: 800;
-            color: var(--ink);
+            color: #ffffff;
             line-height: 1.35;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -160,7 +156,7 @@
             margin-top: 2px;
             font-size: 10px;
             font-weight: 700;
-            color: var(--color-forest);
+            color: #ffb703;
             letter-spacing: .3px;
             pointer-events: none;
         }
