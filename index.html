@@ -725,10 +725,9 @@
             for (let i = 0; i < list.length; i++) {
                 const g = list[i];
                 const coverUrl = "assets/covers/" + g.id + ".jpg";
-                const fallbackUrl = "assets/covers/nintendo_hub.jpg";
                 h += `<button type="button" class="cart" onclick="playGame('${g.id}')">
                     <div class="cart-window">
-                        <img src="${coverUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${g.title}" loading="lazy">
+                        <img src="${coverUrl}" alt="${g.title}" loading="lazy">
                     </div>
                     <div class="cart-label">
                         <div class="cart-name">${g.title}</div>
