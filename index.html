@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
@@ -34,7 +34,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background: var(--color-page);
+            background-color: var(--color-page);
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--ink);
             overflow: hidden;
@@ -48,7 +48,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background: var(--color-page);
+            background-color: var(--color-page);
             position: relative;
         }
 
@@ -59,8 +59,12 @@
             flex-direction: column;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            background: var(--color-page);
+            background-color: var(--color-page);
             padding-bottom: 24px;
+        }
+
+        .line {
+            border: 1.5px solid var(--color-line);
         }
 
         .header-nav {
@@ -86,9 +90,9 @@
             color: var(--color-forest);
             font-size: 11px;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 999px;
-            border: 1px solid var(--color-line);
+            border: 1.5px solid var(--color-line);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -100,26 +104,26 @@
             letter-spacing: -0.5px;
         }
 
-        .hero-box {
+        .hero-banner {
             margin: 14px 14px 0;
             background: #ffffff;
             border: 1.5px solid var(--color-line);
-            border-radius: 20px;
-            padding: 14px 16px;
+            border-radius: 22px;
+            padding: 14px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
         .hero-icon {
             width: 44px;
             height: 44px;
             border-radius: 14px;
             background: var(--color-green-soft);
-            border: 1px solid var(--color-line);
+            border: 1.5px solid var(--color-line);
             display: grid;
             place-items: center;
-            font-size: 22px;
+            color: var(--color-forest);
             flex-shrink: 0;
         }
         .hero-text h2 {
@@ -134,34 +138,34 @@
             margin-top: 2px;
         }
 
-        .search-box {
+        .search-container {
             padding: 12px 14px 6px;
+        }
+        .search-wrap {
+            position: relative;
+            width: 100%;
         }
         .search-input {
             width: 100%;
             height: 44px;
             background: #ffffff;
             border: 1.5px solid var(--color-line);
-            border-radius: 14px;
-            padding: 0 14px 0 38px;
+            border-radius: 16px;
+            padding: 0 14px 0 40px;
             color: var(--ink);
             font-family: inherit;
             font-size: 13px;
             font-weight: 600;
             outline: none;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
             transition: border-color 0.2s;
         }
         .search-input:focus {
             border-color: var(--color-forest);
         }
-        .search-wrap {
-            position: relative;
-            width: 100%;
-        }
         .search-icon {
             position: absolute;
-            left: 12px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--color-muted);
@@ -190,7 +194,7 @@
             user-select: none;
             -webkit-user-select: none;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
             transition: transform 0.15s ease, background 0.15s ease;
         }
         .cart:active {
@@ -200,10 +204,10 @@
         .cart-window {
             width: 100%;
             aspect-ratio: 3/4;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             background: var(--color-green-soft);
-            border: 1px solid var(--color-line);
+            border: 1.5px solid var(--color-line);
         }
         .cart-window img {
             width: 100%;
