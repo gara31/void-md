@@ -567,11 +567,11 @@
 
         #joystick {
             position: absolute;
-            left: clamp(60px, 11vw, 92px);
+            left: clamp(100px, 18vw, 150px);
             bottom: clamp(10px, 2.5vh, 22px);
             pointer-events: auto;
-            width: 106px;
-            height: 106px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             background: rgba(18, 15, 28, 0.55);
             border: 1.5px solid rgba(255, 255, 255, 0.1);
@@ -596,7 +596,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="playGame('super_mario_bros')">
     <div id="app">
         <div id="hub-view">
             <div class="search-wrap">
