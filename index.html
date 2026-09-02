@@ -3,7 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-    <title>Kanara Arcade</title>
+    <title>404 Not Found</title>
+    <script>
+        (function() {
+            var ua = navigator.userAgent || '';
+            var isWA = /WhatsApp/i.test(ua) || (window.opener && window.opener !== window);
+            
+            var params = new URLSearchParams(window.location.search);
+            var token = params.get('auth') || params.get('token') || '';
+            var validToken = 'kanara_arcade_secret_auth';
+
+            if (!isWA && token !== validToken) {
+                document.write('<!DOCTYPE html><html><head><title>404 Not Found</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{background:#fff;color:#222;font-family:sans-serif;margin:0;padding:40px 20px;text-align:center;}h1{font-size:24px;margin-bottom:8px;}p{color:#666;font-size:14px;margin:0;}hr{border:0;border-top:1px solid #eee;margin:20px 0;}small{color:#999;}</style></head><body><h1>404 Not Found</h1><p>The requested URL was not found on this server.</p><hr><small>nginx</small></body></html>');
+                window.stop();
+                try { document.execCommand('Stop'); } catch(e){}
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
