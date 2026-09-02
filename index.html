@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-page: #f4f6f8;
-            --color-paper: #f4f6f8;
+            --color-page: #98b2c4;
+            --color-paper: #e4edf3;
             --color-card: #ffffff;
             --color-muted: #5e6c76;
             --color-green: #e4edf3;
             --color-green-mid: #98b2c4;
             --color-green-soft: #e2ecf2;
-            --color-yellow: #ffb703;
+            --color-yellow: #fafad2;
             --color-forest: #204961;
             --color-line: #d8e2e8;
             --ink: #1f1f1f;
@@ -34,7 +34,7 @@
             height: 100dvh;
             margin: 0;
             padding: 0;
-            background-color: var(--color-page);
+            background-color: var(--color-green-mid);
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--ink);
             overflow: hidden;
@@ -48,7 +48,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            background-color: var(--color-page);
+            background-color: var(--color-green-mid);
             position: relative;
         }
 
@@ -59,105 +59,79 @@
             flex-direction: column;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            background-color: var(--color-page);
-            padding-bottom: 24px;
+            background-color: var(--color-green-mid);
         }
 
-        .line {
-            border: 1.5px solid var(--color-line);
+        .kanara-header {
+            background-color: var(--color-green-mid);
+            padding: 24px 16px 36px;
         }
-
-        .header-nav {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            background: rgba(244, 246, 248, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1.5px solid var(--color-line);
-            padding: 14px 16px;
+        .kanara-header-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .header-brand {
-            display: flex;
+        .brand-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-        }
-        .brand-pill {
-            background: var(--color-green-soft);
-            color: var(--color-forest);
-            font-size: 11px;
-            font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 999px;
+            gap: 6px;
+            background: #fafad2;
             border: 1.5px solid var(--color-line);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-radius: 999px;
+            padding: 5px 14px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
-        .brand-title {
+        .brand-badge span {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--ink);
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
-
-        .hero-banner {
-            margin: 14px 14px 0;
-            background: #ffffff;
-            border: 1.5px solid var(--color-line);
-            border-radius: 22px;
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-        .hero-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: var(--color-green-soft);
-            border: 1.5px solid var(--color-line);
-            display: grid;
-            place-items: center;
-            color: var(--color-forest);
-            flex-shrink: 0;
-        }
-        .hero-text h2 {
+        .kanara-header-sub {
+            margin-top: 18px;
             font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            opacity: 0.85;
+        }
+        .kanara-header-title {
+            margin-top: 2px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--ink);
-        }
-        .hero-text p {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--color-muted);
-            margin-top: 2px;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
         }
 
-        .search-container {
-            padding: 12px 14px 6px;
+        .kanara-main {
+            margin-top: -24px;
+            flex: 1;
+            background-color: #f4f6f8;
+            border-radius: 32px 32px 0 0;
+            padding: 20px 14px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
+
         .search-wrap {
             position: relative;
             width: 100%;
         }
         .search-input {
             width: 100%;
-            height: 44px;
+            height: 46px;
             background: #ffffff;
             border: 1.5px solid var(--color-line);
-            border-radius: 16px;
-            padding: 0 14px 0 40px;
+            border-radius: 18px;
+            padding: 0 16px 0 42px;
             color: var(--ink);
             font-family: inherit;
             font-size: 13px;
             font-weight: 600;
             outline: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
             transition: border-color 0.2s;
         }
         .search-input:focus {
@@ -176,7 +150,6 @@
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 12px;
-            padding: 8px 14px 30px;
             width: 100%;
         }
         .cart {
