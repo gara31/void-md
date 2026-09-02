@@ -1,10 +1,5 @@
 [
   {
-    "id": "balloon_fight",
-    "title": "Balloon Fight",
-    "file": "balloon_fight.nes"
-  },
-  {
     "id": "super_mario_bros",
     "title": "Super Mario Bros",
     "file": "super_mario_bros.nes"
