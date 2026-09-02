@@ -5102,7 +5102,6 @@
             nes = null;
             document.getElementById('game-view').style.display = 'none';
             document.getElementById('hub-view').style.display = 'flex';
-            renderGameGrid(ALL_GAMES);
             for (let i = 0; i < 61440; i++) buf32[i] = 0xFF000000;
             cx.putImageData(img, 0, 0);
         }
