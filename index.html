@@ -350,30 +350,38 @@
             justify-content: space-between;
         }
         .back-btn {
-            background: #ffffff;
-            border: 1.5px solid var(--color-line);
-            color: var(--ink);
+            background: rgba(18, 15, 28, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 800;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 999px;
             cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         .top-right-ctrl {
             display: flex;
             align-items: center;
             gap: 10px;
+            background: rgba(18, 15, 28, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         .meta-pill {
-            height: 28px;
-            padding: 0 14px;
-            background: #ffffff;
-            border: 1.5px solid var(--color-line);
-            border-radius: 14px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            height: 26px;
+            padding: 0 12px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
-            color: var(--ink);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 800;
             letter-spacing: .6px;
@@ -384,7 +392,7 @@
         }
         .meta-pill:active, .meta-pill.touching {
             transform: translateY(2px);
-            background: var(--color-green-soft);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         #cabinet {
