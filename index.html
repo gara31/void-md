@@ -65,17 +65,21 @@
         @media (orientation: landscape) {
             body:not(.in-game) #app {
                 position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw !important;
-                height: 100vh !important;
-                max-width: 100vw !important;
-                transform: none !important;
+                top: 50%;
+                left: 50%;
+                width: 100dvh !important;
+                height: 100dvw !important;
+                max-width: 430px !important;
+                transform: translate(-50%, -50%) rotate(90deg);
+                transform-origin: center center;
+                overflow: hidden;
             }
             body:not(.in-game) #hub-view {
-                max-width: 430px;
-                margin: 0 auto;
-                width: 100%;
+                width: 100% !important;
+                height: 100% !important;
+                max-width: 100% !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
             }
         }
 
