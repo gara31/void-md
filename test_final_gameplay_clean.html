@@ -388,10 +388,9 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100vh * 4 / 3);
-            width: calc(100dvh * 4 / 3);
-            height: 100vh;
-            height: 100dvh;
+            width: auto;
+            height: 100%;
+            aspect-ratio: 256 / 240;
             padding: 0;
             margin: 0;
             z-index: 1;
@@ -428,8 +427,9 @@
             box-shadow: none !important;
         }
         canvas#nes {
-            width: 100% !important;
-            height: 100% !important;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
@@ -603,7 +603,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="playGame('super_mario_bros')">
     <div id="app">
         <div id="hub-view">
             <div class="search-wrap">
