@@ -40,6 +40,11 @@
     "file": "adventures_of_bayou_billy_the.nes"
   },
   {
+    "id": "among_us_tragedy_of_ryohyukan",
+    "title": "Among Us - Tragedy of Ryohyukan",
+    "file": "among_us_tragedy_of_ryohyukan.nes"
+  },
+  {
     "id": "ankoku_shinwa_the_dark_myth",
     "title": "Ankoku Shinwa - The Dark Myth",
     "file": "ankoku_shinwa_the_dark_myth.nes"
@@ -135,6 +140,11 @@
     "file": "golf.nes"
   },
   {
+    "id": "grave_of_the_fireflies",
+    "title": "Grave of the Fireflies",
+    "file": "grave_of_the_fireflies.nes"
+  },
+  {
     "id": "heracles_no_eikou_toujin_makyou_den",
     "title": "Heracles no Eikou - Toujin Makyou Den",
     "file": "heracles_no_eikou_toujin_makyou_den.nes"
@@ -183,6 +193,11 @@
     "id": "kujaku_ou_peacock_king",
     "title": "Kujaku Ou - Peacock King",
     "file": "kujaku_ou_peacock_king.nes"
+  },
+  {
+    "id": "kujaku_ou_ii_peacock_king_ii",
+    "title": "Kujaku Ou II - Peacock King II",
+    "file": "kujaku_ou_ii_peacock_king_ii.nes"
   },
   {
     "id": "lee_carvallo_s_putting_challenge",
@@ -270,6 +285,11 @@
     "file": "rockman_2_dr_wily_no_nazo.nes"
   },
   {
+    "id": "rockman_l",
+    "title": "Rockman L",
+    "file": "rockman_l.nes"
+  },
+  {
     "id": "romancia",
     "title": "Romancia",
     "file": "romancia.nes"
@@ -318,6 +338,11 @@
     "id": "star_soldier",
     "title": "Star Soldier",
     "file": "star_soldier.nes"
+  },
+  {
+    "id": "sted_iseki_wakusei_no_yabou",
+    "title": "Sted - Iseki Wakusei no Yabou",
+    "file": "sted_iseki_wakusei_no_yabou.nes"
   },
   {
     "id": "super_chinese_3",
@@ -970,6 +995,11 @@
     "file": "disney_s_chip_n_dale_rescue_rangers.nes"
   },
   {
+    "id": "disney_s_chip_n_dale_rescue_rangers_2",
+    "title": "Disney's Chip 'n Dale Rescue Rangers 2",
+    "file": "disney_s_chip_n_dale_rescue_rangers_2.nes"
+  },
+  {
     "id": "disney_s_darkwing_duck",
     "title": "Disney's Darkwing Duck",
     "file": "disney_s_darkwing_duck.nes"
@@ -978,6 +1008,11 @@
     "id": "disney_s_ducktales",
     "title": "Disney's DuckTales",
     "file": "disney_s_ducktales.nes"
+  },
+  {
+    "id": "disney_s_ducktales_2",
+    "title": "Disney's DuckTales 2",
+    "file": "disney_s_ducktales_2.nes"
   },
   {
     "id": "disney_s_talespin",
@@ -1285,6 +1320,11 @@
     "file": "great_waldo_search_the.nes"
   },
   {
+    "id": "great_maze_the_master_of_the_maze",
+    "title": "Great Maze, The - Master of the Maze",
+    "file": "great_maze_the_master_of_the_maze.nes"
+  },
+  {
     "id": "greg_norman_s_golf_power",
     "title": "Greg Norman's Golf Power",
     "file": "greg_norman_s_golf_power.nes"
@@ -1360,9 +1400,19 @@
     "file": "hoops.nes"
   },
   {
+    "id": "hotman",
+    "title": "Hotman",
+    "file": "hotman.nes"
+  },
+  {
     "id": "hudson_hawk",
     "title": "Hudson Hawk",
     "file": "hudson_hawk.nes"
+  },
+  {
+    "id": "hudson_s_adventure_island",
+    "title": "Hudson's Adventure Island",
+    "file": "hudson_s_adventure_island.nes"
   },
   {
     "id": "ikari_iii_the_rescue",
@@ -1500,6 +1550,11 @@
     "file": "knight_rider.nes"
   },
   {
+    "id": "knights_of_the_zodiac_legend_of_the_gold",
+    "title": "Knights of the Zodiac - Legend of the Gold",
+    "file": "knights_of_the_zodiac_legend_of_the_gold.nes"
+  },
+  {
     "id": "knights_of_the_zodiac_the_golden_legend_final_chapter",
     "title": "Knights of the Zodiac - The Golden Legend - Final Chapter",
     "file": "knights_of_the_zodiac_the_golden_legend_final_chapter.nes"
@@ -1523,6 +1578,11 @@
     "id": "lee_trevino_s_fighting_golf",
     "title": "Lee Trevino's Fighting Golf",
     "file": "lee_trevino_s_fighting_golf.nes"
+  },
+  {
+    "id": "legend_of_kage_the",
+    "title": "Legend of Kage, The",
+    "file": "legend_of_kage_the.nes"
   },
   {
     "id": "legend_of_zelda_the",
@@ -1785,6 +1845,11 @@
     "file": "phantom_fighter.nes"
   },
   {
+    "id": "photon",
+    "title": "Photon",
+    "file": "photon.nes"
+  },
+  {
     "id": "pictionary_the_game_of_video_quick_draw",
     "title": "Pictionary - The Game of Video Quick Draw",
     "file": "pictionary_the_game_of_video_quick_draw.nes"
@@ -1818,6 +1883,11 @@
     "id": "princess_tomato_in_the_salad_kingdom",
     "title": "Princess Tomato in the Salad Kingdom",
     "file": "princess_tomato_in_the_salad_kingdom.nes"
+  },
+  {
+    "id": "princesstual_orgy",
+    "title": "Princesstual Orgy",
+    "file": "princesstual_orgy.nes"
   },
   {
     "id": "pro_wrestling",
@@ -2073,6 +2143,11 @@
     "id": "snow_brothers",
     "title": "Snow Brothers",
     "file": "snow_brothers.nes"
+  },
+  {
+    "id": "softballheaven",
+    "title": "SoftballHeaven",
+    "file": "softballheaven.nes"
   },
   {
     "id": "solomon_s_key",
