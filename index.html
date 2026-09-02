@@ -175,6 +175,29 @@
             text-align: center;
             padding: 24px;
         }
+        #rotate-back-btn {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 8px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+        }
+        #rotate-back-btn:active {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(0.96);
+        }
         #lottie-box {
             width: clamp(280px, 80vw, 360px);
             height: clamp(280px, 80vw, 360px);
