@@ -727,7 +727,7 @@
                 const coverUrl = "assets/covers/" + g.id + ".jpg";
                 h += `<button type="button" class="cart" onclick="playGame('${g.id}')">
                     <div class="cart-window">
-                        <img src="${coverUrl}" alt="${g.title}" loading="lazy">
+                        <img src="${coverUrl}" alt="${g.title}" decoding="async">
                     </div>
                     <div class="cart-label">
                         <div class="cart-name">${g.title}</div>
